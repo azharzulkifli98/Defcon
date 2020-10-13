@@ -4,6 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// Missile Manager registeres and remembers missiles that are fired at a board
+/// Author: Ethan Galloway
 /// </summary>
 public class MissileManager //Missile manager inherits from nothing
 {
