@@ -11,7 +11,7 @@ public class BoardManager : MonoBehaviour
     private int currPop;
     private int initPop;
     private GameObject[] cityLocations;
-    private Gameobject[] siloLocations;
+    private GameObject[] siloLocations;
     private GameObject[] radarLocations;
     private int[,] popDistribution; // needs to be 10 x 10
 
