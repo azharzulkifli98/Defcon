@@ -4,6 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// Missile Manager registeres and remembers missiles that are fired at a board
+/// Author: Ethan Galloway
 /// </summary>
 public class MissileManager //Missile manager inherits from nothing
 {
@@ -35,6 +36,11 @@ public class MissileManager //Missile manager inherits from nothing
     /// The list is initialized to an empty list at the start of the code running
     /// </summary>
     List<MissileLaunch> missileLaunches = new List<MissileLaunch>();
+
+    /// <summary>
+    /// The board assigned to this missile manager
+    /// </summary>
+//    Board board = null;
 
     /// <summary>
     /// Registers a new missile launch on this MissileManager's board, to land
