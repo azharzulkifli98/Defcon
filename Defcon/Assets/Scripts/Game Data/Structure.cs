@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Structure
 {
-    bool is_destroyed;
+    bool is_destroyed = false;
 
     int x;
 
@@ -15,4 +15,16 @@ public abstract class Structure
     /// </summary>
     /// <returns></returns>
     public abstract string GetID();
+
+    // does this structure still exist
+    public bool IsDestroyed()
+    {
+        return is_destroyed;
+    }
+
+    // set structure status to destroyed
+    public void Destroy()
+    {
+        is_destroyed = true;
+    }
 }
