@@ -2,8 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GameManager : MonoBehaviour
 {
+    private Board b1;
+    private Board b2;
+    private Player p1;
+    private Player p2;
+
+
+
+    public void StartGame(Player p1,Board b1,Player p2, Board b2)
+    {
+
+        //Generate boards and populations (boardmanager)-constructor
+        //Start game will call building choice for each player
+        //Function will then yield to main gameplay loop
+    }
+
+    public void StartTurn(Player player)
+    {
+        //find player board (render)
+        //p1.makedecision()
+        //find if action can be taken (not then call yield)
+        //Prompt action
+    }
+
+
+    public void YieldTurn(Player player)
+    {
+        //Return end decision to prompt action
+
+    }
+    public void NextRound()
+    {
+        //checks for errors
+        //checks for endgame conditions
+        // call EndGame() if condition is met
+    }
+
+
+
     /* Instead of prepping functions, I actually think this will be easier
      * for you guys with a walkthrough. Here we go!
      * 
@@ -31,3 +70,20 @@ public class GameManager : MonoBehaviour
      * I'd advise a lot of helper functions and a ton of documentation
      */
 }
+
+
+// int main()
+// {
+//     //Create game manager object
+//     //start game
+//     //loop
+//     //start turn{
+//         //find/display player board
+//         //if action not taken (return)
+//         //prompt ()
+//         //}
+//     //Same but for P2
+
+//     //end loop if(xyz)
+
+// }
