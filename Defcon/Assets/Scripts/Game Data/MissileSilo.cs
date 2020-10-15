@@ -6,6 +6,13 @@ public class MissileSilo : Structure
 {
     int missile_count;
 
+
+    public MissileSilo(int given_x, int given_y)
+    {
+        this.x = given_x;
+        this.y = given_y;
+    }
+
     public override string GetID()
     {
         return "Missile_Silo";

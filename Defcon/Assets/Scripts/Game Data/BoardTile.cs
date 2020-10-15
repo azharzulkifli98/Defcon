@@ -20,7 +20,7 @@ public class BoardTile
         this.structure = given_struct;
     }
 
-    // Perform all functionality related to a direct hit (missile hits this target directly). Anthony's document will specify specifics
+    // Perform all functionality related to a direct hit (missile hits this target directly)
     public void OnDirectHit()
     {
         population = 0;
@@ -31,7 +31,7 @@ public class BoardTile
         
     }
 
-    // Perform all funcitonality related to a glancing hit (missile hits adjacent tile). Anthony's document will specify specifics
+    // Perform all funcitonality related to a glancing hit (missile hits adjacent tile)
     public void OnIndirectHit()
     {
         population = population / 2;

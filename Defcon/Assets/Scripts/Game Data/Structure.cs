@@ -7,7 +7,6 @@ public abstract class Structure
     bool is_destroyed = false;
 
     int x;
-
     int y;
 
     /// <summary>
