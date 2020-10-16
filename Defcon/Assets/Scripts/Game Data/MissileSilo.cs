@@ -18,6 +18,12 @@ public class MissileSilo : Structure
         return "Missile_Silo";
     }
 
+    // get number of missiles in the silo
+    public int GetRemainingMissiles()
+    {
+        return missile_count;
+    }
+
     // Decrement missile count and return true if missile_count > 0
     // otherwise, return false and do nothing
     public bool Fire_Missile()

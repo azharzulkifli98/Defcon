@@ -2,9 +2,9 @@ using UnityEngine;
 
 public abstract class Player //abstract denotes that this class has abstract functions and cannot be instantiated as a complete object+
 {
-    Board playerBoard = null;
+    protected Board playerBoard = null;
 
-    Board enemyBoard = null;
+    protected Board enemyBoard = null;
     
     /// <summary>
     ///complete actions to signal beginning of turn

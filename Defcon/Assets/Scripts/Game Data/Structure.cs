@@ -6,8 +6,8 @@ public abstract class Structure
 {
     bool is_destroyed = false;
 
-    int x;
-    int y;
+    protected int x;
+    protected int y;
 
     /// <summary>
     /// Returns a string to tell us the type of a structure

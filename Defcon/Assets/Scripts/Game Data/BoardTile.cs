@@ -20,6 +20,12 @@ public class BoardTile
         this.structure = given_struct;
     }
 
+    // for AI and UI
+    public int GetPopulation()
+    {
+        return population;
+    }
+
     // Perform all functionality related to a direct hit (missile hits this target directly)
     public void OnDirectHit()
     {
@@ -28,7 +34,6 @@ public class BoardTile
         {
             structure.Destroy();
         }
-        
     }
 
     // Perform all funcitonality related to a glancing hit (missile hits adjacent tile)
@@ -38,8 +43,22 @@ public class BoardTile
     }
 
     // Structure needs getter
-    public Structure getStruct()
+    public Structure GetStruct()
     {
         return structure;
+    }
+
+    // Needed for adding Missile Silos
+    public bool SetStruct(Structure given_struct)
+    {
+        if (this.structure == null)
+        {
+            this.structure = given_struct;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
