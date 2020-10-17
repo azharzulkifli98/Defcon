@@ -72,9 +72,15 @@ public class WorldChunk : MonoBehaviour
 
         if(tile.GetStruct() != null)
         {
-            if(tile.GetStruct().GetID() == "Missile_Silo")
+            if (tile.GetStruct().GetID() == "Missile_Silo")
             {
-
+                GameObject prefab = Resources.Load<GameObject>("Prefabs/Silo");
+                Instantiate(prefab, transform).transform.position = center;
+            }
+            if (tile.GetStruct().GetID() == "City")
+            {
+                GameObject prefab = Resources.Load<GameObject>("Prefabs/City");
+                Instantiate(prefab, transform).transform.position = transform.TransformPoint(center);
             }
         }
     }
