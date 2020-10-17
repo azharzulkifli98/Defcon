@@ -8,13 +8,14 @@ public class WorldRenderer
 
     static List<WorldChunk> worldChunks = new List<WorldChunk>();
 
-    public static void Render(Board board)
+    public static void Render(Board board, Vector3 offset)
     {
         for (int x = 0; x < board.GetWidth() + MAX_DIM; x += MAX_DIM)
         {
             for (int y = 0; y < board.GetHeight() + MAX_DIM; y += MAX_DIM)
             {
                 WorldChunk chunk = new GameObject("Chunk").AddComponent<WorldChunk>();
+                chunk.transform.position = offset;
                 chunk.Prime(board, x, x + MAX_DIM < board.GetWidth() ? x + MAX_DIM : board.GetWidth(), y, y + MAX_DIM < board.GetHeight() ? y + MAX_DIM : board.GetHeight());
                 worldChunks.Add(chunk);
             }

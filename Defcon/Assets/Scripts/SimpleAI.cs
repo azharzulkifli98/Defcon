@@ -61,11 +61,6 @@ public class SimpleAI : Player
         return;
     }
 
-    public override void end_decision()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public override void set_silos(Board board)
     {
         board.SetMissileSilo(0, 0);
