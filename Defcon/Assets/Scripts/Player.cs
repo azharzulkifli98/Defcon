@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Player //abstract denotes that this class has abstract functions and cannot be instantiated as a complete object+
@@ -16,4 +17,14 @@ public abstract class Player //abstract denotes that this class has abstract fun
     /// </summary>
     public abstract void end_decision();
 
+    /// <summary>
+    /// Player sets their own silos on the board
+    /// </summary>
+    /// <param name="board"></param>
+    public abstract void set_silos(Board board);
+
+    public void ready_up(Player player)
+    {
+
+    }
 }

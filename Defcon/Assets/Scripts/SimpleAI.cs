@@ -65,4 +65,13 @@ public class SimpleAI : Player
     {
         throw new System.NotImplementedException();
     }
+
+    public override void set_silos(Board board)
+    {
+        board.SetMissileSilo(0, 0);
+        board.SetMissileSilo(0, 1);
+        board.SetMissileSilo(0, 2);
+        board.SetMissileSilo(0, 3);
+        board.SetMissileSilo(0, 4);
+    }
 }

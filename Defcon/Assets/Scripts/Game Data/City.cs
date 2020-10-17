@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class City : Structure
 {
-    string city_name = "Rolla";
-
 
     public City(int given_x, int given_y)
     {
