@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 public class SimpleAI : Player
 {
-    public override void make_decision()   ///The override denotes that this function is an implementation of an abstract function
+    public override void make_decision(Board playerBoard, Board enemyBoard)   ///The override denotes that this function is an implementation of an abstract function
     {
         //check all tiles on personal board for available silos
-        List<MissileSilo> allSilos = this.playerBoard.GetAllSilos();
+        List<MissileSilo> allSilos = playerBoard.GetAllSilos();
         // ***Q: Can I assume all missles are NOT destroyed?***
 
         if (allSilos.Count == 0){
@@ -73,5 +73,6 @@ public class SimpleAI : Player
         board.SetMissileSilo(0, 2);
         board.SetMissileSilo(0, 3);
         board.SetMissileSilo(0, 4);
+        ready_up();
     }
 }

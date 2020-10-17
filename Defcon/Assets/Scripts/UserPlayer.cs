@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UserPlayer : Player
 {
-    public override void make_decision()
+    public override void make_decision(Board playerBoard, Board enemyBoard)
     {
         
     }

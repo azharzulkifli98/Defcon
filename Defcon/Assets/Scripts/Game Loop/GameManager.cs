@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     public static void StartGame(Player p1,Board b1,Player p2, Board b2)
     {
+        p1_ready = false;
+        p2_ready = false;
         GameManager.p1 = p1;
         GameManager.b1 = b1;
         GameManager.p2 = p2;
@@ -28,20 +30,48 @@ public class GameManager : MonoBehaviour
         p2.set_silos(b2);
     }
 
+    public static void PlayerReady(Player player)
+    {
+        if(player == p1)
+        {
+            p1_ready = true;
+        }else if (player == p2)
+        {
+            p2_ready = true;
+        }
+        if(p1_ready && p2_ready)
+        {
+            StartTurn(p1);
+        }
+    }
+
     public static void StartTurn(Player player)
     {
 
         //find player board (render)
-        //p1.makedecision()
-        //find if action can be taken (not then call yield)
-        //Prompt action
+        if(player == p1)
+        {
+            player.make_decision(b1, b2);
+        }
+        else
+        {
+            player.make_decision(b2, b1);
+        }
     }
 
-
+    /// <summary>
+    /// TODO: END GAME INTEGRATION
+    /// </summary>
+    /// <param name="player"></param>
     public static void YieldTurn(Player player)
     {
-        //Return end decision to prompt action
-
+        if(player == p1)
+        {
+            StartTurn(p2);
+        }else if (player == p2)
+        {
+            StartTurn(p1);
+        }
     }
     public static void NextRound()
     {
