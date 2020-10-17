@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         }
         if(p1_ready && p2_ready)
         {
-       //     StartTurn(p1);
+            StartTurn(p1);
         }
     }
 

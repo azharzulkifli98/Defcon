@@ -27,7 +27,11 @@ public class MouseManager : MonoBehaviour
         {
             Vector3 point = ray.GetPoint(dist);
             highlighter.position = round_point(point);
-            convert_point_to_tile(round_point(point));
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            Debug.Log(!(convert_point_to_tile(highlighter.position) == null));
         }
     }
 
@@ -41,12 +45,24 @@ public class MouseManager : MonoBehaviour
         int x = Mathf.RoundToInt(point.x);
         int y = Mathf.RoundToInt(point.z);
 
-        int offset1_x = Mathf.RoundToInt(offset.x);
-        int offset2_y = Mathf.RoundToInt(offset.z);
+        int offset_x = Mathf.RoundToInt(offset.x);
+        int offset_y = Mathf.RoundToInt(offset.z);
 
-        if(x + offset1_x > 0 && x + offset1_x < board.GetWidth())
+        int tile_x = -1;
+        int tile_y = -1;
+
+        if(x - offset_x >= 0 && x - offset_x < board.GetWidth())
         {
-            Debug.Log("WOOP");
+            tile_x = x - offset_x;
+        }
+        if(y - offset_y >= 0 && y - offset_y < board.GetHeight())
+        {
+            tile_y = y - offset_y;
+        }
+
+        if(tile_y >= 0 && tile_x >= 0)
+        {
+            return board.GetTile(tile_x, tile_y);
         }
 
         return null;
