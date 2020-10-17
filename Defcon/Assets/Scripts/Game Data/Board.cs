@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Board
 {
-    BoardTile[,] tiles;
+    BoardTile[,] tiles = null;
 
     // with add up when tiles[,] is filled
     int total_population = 0;
@@ -23,7 +23,7 @@ public class Board
         // Define the missile manager
         missileManager = new MissileManager();
 
-        // gives an inconsistent total population for now
+        tiles = new BoardTile[10, 10];
 
         // need locations to be distinct
         System.Random r = new System.Random();
@@ -100,5 +100,23 @@ public class Board
     public List<City> GetAllCities()
     {
         return AllCities;
+    }
+
+    /// <summary>
+    /// Returns the X dimension of this board
+    /// </summary>
+    /// <returns></returns>
+    public int GetWidth()
+    {
+        return tiles.GetLength(0);
+    }
+
+    /// <summary>
+    /// Returns the Y dimension of this board
+    /// </summary>
+    /// <returns></returns>
+    public int GetHeight()
+    {
+        return tiles.GetLength(1);
     }
 }

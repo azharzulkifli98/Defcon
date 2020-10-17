@@ -30,7 +30,7 @@ public class WorldChunk : MonoBehaviour
     /// <param name="maxX"> The lowest X value that isn't rendered after minX</param>
     /// <param name="minY"> The lowest Y value that is rendered</param>
     /// <param name="maxY"> The lowest Y value that isn't rendered after minY</param>
-    public void Prime(int minX, int maxX, int minY, int maxY)
+    public void Prime(Board board, int minX, int maxX, int minY, int maxY)
     {
         filter = GetComponent<MeshFilter>();
         renderer = GetComponent<MeshRenderer>();
@@ -42,14 +42,19 @@ public class WorldChunk : MonoBehaviour
         {
             for(int j = minY; j < maxY; j++)
             {
-                RenderTile(map, i, j);
+                RenderTile(map, board.GetTile(i,j));
             }
         }
 
         filter.mesh = map.GenerateMesh();
     }
 
-    public void RenderTile(TriangleMap map, int x, int y)
+    /// <summary>
+    /// Renders the tile, including a city or silo if necessary
+    /// </summary>
+    /// <param name="map"></param>
+    /// <param name="tile"></param>
+    public void RenderTile(TriangleMap map, BoardTile tile)
     {
         int submesh = 0;
         if(Random.Range(0, 5) > 1)
@@ -57,7 +62,7 @@ public class WorldChunk : MonoBehaviour
             submesh = 1;
         }
 
-        Vector3 center = new Vector3(tileSize * x, 0, tileSize * y);
+        Vector3 center = new Vector3(tileSize * tile.GetX(), 0, tileSize * tile.GetY());
 
         Vector3 topLeft = center + Vector3.forward * tileSize / 2 + Vector3.left * tileSize / 2;
         Vector3 topRight = center + Vector3.forward * tileSize / 2 + Vector3.right * tileSize / 2;
@@ -66,10 +71,5 @@ public class WorldChunk : MonoBehaviour
 
         map.RegisterTriangle(topLeft, topRight, bottomLeft, submesh);
         map.RegisterTriangle(topRight, bottomRight, bottomLeft, submesh);
-    }
-
-    private void Start()
-    {
-        Prime(0, 10, 0, 10);
     }
 }

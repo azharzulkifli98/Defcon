@@ -39,7 +39,7 @@ public class BoardTile
     // Perform all funcitonality related to a glancing hit (missile hits adjacent tile)
     public void OnIndirectHit()
     {
-        population = population / 2;
+        population /= 2;
     }
 
     // Structure needs getter
@@ -60,5 +60,15 @@ public class BoardTile
         {
             return false;
         }
+    }
+
+    public int GetX()
+    {
+        return x;
+    }
+
+    public int GetY()
+    {
+        return y;
     }
 }

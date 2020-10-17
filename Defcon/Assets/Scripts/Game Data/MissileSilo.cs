@@ -9,8 +9,10 @@ public class MissileSilo : Structure
 
     public MissileSilo(int given_x, int given_y)
     {
-        this.x = given_x;
-        this.y = given_y;
+        x = given_x;
+        y = given_y;
+
+        missile_count = 5;
     }
 
     public override string GetID()
@@ -28,6 +30,14 @@ public class MissileSilo : Structure
     // otherwise, return false and do nothing
     public bool Fire_Missile()
     {
-        throw new System.NotImplementedException();
+        if (missile_count > 0)
+        {
+            missile_count--;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

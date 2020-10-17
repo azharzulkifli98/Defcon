@@ -5,36 +5,75 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private Board b1;
-    private Board b2;
-    private Player p1;
-    private Player p2;
+    private static Board b1;
+    private static Board b2;
+    private static Player p1;
+    private static Player p2;
 
+    private static bool p1_ready;
+    private static bool p2_ready;
 
-
-    public void StartGame(Player p1,Board b1,Player p2, Board b2)
+    private void Start()
     {
-
-        //Generate boards and populations (boardmanager)-constructor
-        //Start game will call building choice for each player
-        //Function will then yield to main gameplay loop
+        StartGame(new SimpleAI(), new Board(), new SimpleAI(), new Board());
     }
 
-    public void StartTurn(Player player)
+    public static void StartGame(Player p1,Board b1,Player p2, Board b2)
     {
+        p1_ready = false;
+        p2_ready = false;
+        GameManager.p1 = p1;
+        GameManager.b1 = b1;
+        GameManager.p2 = p2;
+        GameManager.b2 = b2;
+        p1.set_silos(b1);
+        p2.set_silos(b2);
+    }
+
+    public static void PlayerReady(Player player)
+    {
+        if(player == p1)
+        {
+            p1_ready = true;
+        }else if (player == p2)
+        {
+            p2_ready = true;
+        }
+        if(p1_ready && p2_ready)
+        {
+            StartTurn(p1);
+        }
+    }
+
+    public static void StartTurn(Player player)
+    {
+
         //find player board (render)
-        //p1.makedecision()
-        //find if action can be taken (not then call yield)
-        //Prompt action
+        if(player == p1)
+        {
+            player.make_decision(b1, b2);
+        }
+        else
+        {
+            player.make_decision(b2, b1);
+        }
     }
 
-
-    public void YieldTurn(Player player)
+    /// <summary>
+    /// TODO: END GAME INTEGRATION
+    /// </summary>
+    /// <param name="player"></param>
+    public static void YieldTurn(Player player)
     {
-        //Return end decision to prompt action
-
+        if(player == p1)
+        {
+            StartTurn(p2);
+        }else if (player == p2)
+        {
+            StartTurn(p1);
+        }
     }
-    public void NextRound()
+    public static void NextRound()
     {
         //checks for errors
         //checks for endgame conditions
