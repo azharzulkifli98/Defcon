@@ -11,8 +11,10 @@ public abstract class Player //abstract denotes that this class has abstract fun
     /// <summary>
     /// complete actions to signal end of turn
     /// </summary>
-    public abstract void end_decision();
-
+    public void end_decision()
+    {
+        GameManager.YieldTurn(this);
+    }
     /// <summary>
     /// Player sets their own silos on the board
     /// </summary>

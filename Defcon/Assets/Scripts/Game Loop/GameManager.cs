@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StartGame(new SimpleAI(), new Board(), new SimpleAI(), new Board());
+        StartGame(new SimpleAI(), new Board(), new UserPlayer(), new Board());
     }
 
     public static void StartGame(Player p1,Board b1,Player p2, Board b2)
@@ -47,20 +47,21 @@ public class GameManager : MonoBehaviour
 
     public static void StartTurn(Player player)
     {
-
         //find player board (render)
         if(player == p1)
         {
+            Debug.Log("P1");
             player.make_decision(b1, b2);
         }
         else
         {
+            Debug.Log("P2");
             player.make_decision(b2, b1);
         }
     }
 
     /// <summary>
-    /// TODO: END GAME INTEGRATION
+    /// TODO: END GAME INTEGRATION/NEXT ROUND INTEGRATION
     /// </summary>
     /// <param name="player"></param>
     public static void YieldTurn(Player player)

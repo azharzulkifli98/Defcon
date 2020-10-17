@@ -47,6 +47,8 @@ public class WorldChunk : MonoBehaviour
         }
 
         filter.mesh = map.GenerateMesh();
+
+        renderer.sharedMaterial = Resources.Load<Material>("Materials/Ground");
     }
 
     /// <summary>
@@ -57,10 +59,6 @@ public class WorldChunk : MonoBehaviour
     public void RenderTile(TriangleMap map, BoardTile tile)
     {
         int submesh = 0;
-        if(Random.Range(0, 5) > 1)
-        {
-            submesh = 1;
-        }
 
         Vector3 center = new Vector3(tileSize * tile.GetX(), 0, tileSize * tile.GetY());
 
@@ -71,5 +69,19 @@ public class WorldChunk : MonoBehaviour
 
         map.RegisterTriangle(topLeft, topRight, bottomLeft, submesh);
         map.RegisterTriangle(topRight, bottomRight, bottomLeft, submesh);
+
+        if(tile.GetStruct() != null)
+        {
+            if (tile.GetStruct().GetID() == "Missile_Silo")
+            {
+                GameObject prefab = Resources.Load<GameObject>("Prefabs/Silo");
+                Instantiate(prefab, transform).transform.position = center;
+            }
+            if (tile.GetStruct().GetID() == "City")
+            {
+                GameObject prefab = Resources.Load<GameObject>("Prefabs/City");
+                Instantiate(prefab, transform).transform.position = transform.TransformPoint(center);
+            }
+        }
     }
 }
