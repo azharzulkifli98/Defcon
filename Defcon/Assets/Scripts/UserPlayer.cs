@@ -17,4 +17,12 @@ public class UserPlayer : Player
 
         UserDisplay.DisplayToPlayer("Select silo locations with the mouse button.");
     }
+
+    ///Prepare for silo selection function
+    
+    ///Respond to silo selection
+    
+    /// Prepare for missile target
+    
+    ///Respond to missile target
 }

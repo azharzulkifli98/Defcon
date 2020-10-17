@@ -10,6 +10,8 @@ public class WorldRenderer
 
     public static void Render(Board board, Vector3 offset)
     {
+        FlushChunks();
+
         for (int x = 0; x < board.GetWidth() + MAX_DIM; x += MAX_DIM)
         {
             for (int y = 0; y < board.GetHeight() + MAX_DIM; y += MAX_DIM)
