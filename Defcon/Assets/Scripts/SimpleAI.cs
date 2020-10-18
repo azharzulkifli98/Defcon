@@ -14,7 +14,9 @@ public class SimpleAI : Player
         // Issue --- need to make sure that the same place isn't shot at multiple times -Pamela
         for(int k = 0; k < allSilos.Count; k++){
             // COMPILER ISSUE --- check to make sure silo isn't empty or destroyed
-            if(allSilos[k].Fire_Missiles())
+            // RESOLUTION ---- Fire_Missile will do this naturally. If it's false, then we can't fire
+            // from that silo. Otherwise, we can. Azhar may still be updating with final functionality
+            if(allSilos[k].Fire_Missile())
             {
                 for(int i = 0; i < 10; i++){
                     for(int j = 0; j < 10; j++){
@@ -23,7 +25,7 @@ public class SimpleAI : Player
                     }
                 }
                 // COMPILER ISSUE --- get target's x and y values for registering, get Missile Manager access for registering
-                enemyBoard.getMissileManager().RegisterMissile(target.getWidth(), target.getHeight());
+                enemyBoard.GetMissileManager().RegisterMissile(target.GetX(), target.GetY());
             }
         }
         end_decision();
