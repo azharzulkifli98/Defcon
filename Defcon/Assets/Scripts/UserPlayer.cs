@@ -15,7 +15,7 @@ public class UserPlayer : Player
 
         WorldRenderer.Render(board, new Vector3(-5, 0, -10));
 
-        UserDisplay.DisplayToPlayer("Select silo locations with the mouse button.");
+        UserDisplay.DisplayToPlayer("Select missile silo Location");
 
         PrepForSiloSelection();
     }
@@ -23,6 +23,7 @@ public class UserPlayer : Player
     public void PrepForSiloSelection()
     {
         MouseManager.OnTileSelect += SiloSelectionResponse;
+
     }
     
     /* TODO:
@@ -32,6 +33,22 @@ public class UserPlayer : Player
      */
     public void SiloSelectionResponse(BoardTile tile)
     {
+        int x;
+        int y;
+        x=tile.GetX();
+        y=tile.GetY();
+        if (tile.GetStruct() == null)
+        {
+            this.playerBoard.SetMissileSilo(x,y);
+            UserDisplay.DisplayToPlayer("Silo Placed");
+        }
+        else
+        {
+            UserDisplay.DisplayToPlayer("Silo already exists in this location");
+        }
+
+
+
 
     }
     

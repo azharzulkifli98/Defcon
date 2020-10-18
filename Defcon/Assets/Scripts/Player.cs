@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Player //abstract denotes that this class has abstract functions and cannot be instantiated as a complete object+
-{   
+{
+    public Board playerBoard;
     /// <summary>
     ///complete actions to signal beginning of turn
     /// </summary>
@@ -14,6 +15,10 @@ public abstract class Player //abstract denotes that this class has abstract fun
     public void end_decision()
     {
         GameManager.YieldTurn(this);
+    }
+    public void set_player_board(Board playerBoard)
+    {
+        this.playerBoard=playerBoard;
     }
     /// <summary>
     /// Player sets their own silos on the board

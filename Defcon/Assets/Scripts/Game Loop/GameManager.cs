@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
         GameManager.b1 = b1;
         GameManager.p2 = p2;
         GameManager.b2 = b2;
+        p1.set_player_board(b1);
+        p2.set_player_board(b2);
         p1.set_silos(b1);
         p2.set_silos(b2);
     }
