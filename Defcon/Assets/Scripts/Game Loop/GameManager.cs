@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
         GameManager.b2 = b2;
         p1.set_player_board(b1);
         p2.set_player_board(b2);
-        p1.set_silos(b1);
-        p2.set_silos(b2);
+        p1.set_silos();
+        p2.set_silos();
     }
 
     public static void PlayerReady(Player player)

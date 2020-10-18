@@ -24,7 +24,7 @@ public abstract class Player //abstract denotes that this class has abstract fun
     /// Player sets their own silos on the board
     /// </summary>
     /// <param name="board"></param>
-    public abstract void set_silos(Board board);
+    public abstract void set_silos();
 
     public void ready_up()
     {

@@ -61,16 +61,16 @@ public class SimpleAI : Player
         return;
     }
 
-    public override void set_silos(Board board)
+    public override void set_silos()
     {
         int placed = 0;
         int j = 0;
         while (placed < 5)
         {
             // avoid placing on cities or radars
-            if (board.GetTile(0, j).GetStruct() == null)
+            if (this.playerBoard.GetTile(0, j).GetStruct() == null)
             {
-                board.SetMissileSilo(0, j);
+                this.playerBoard.SetMissileSilo(0, j);
                 placed++;
             }
             j++;

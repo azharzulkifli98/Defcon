@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class UserPlayer : Player
 {
+    int silo;
     public override void make_decision(Board playerBoard, Board enemyBoard)
     {
         
     }
 
-    public override void set_silos(Board board)
+    public override void set_silos()
     {
-        MouseManager.Prime(board, new Vector3(-5, 0, -10));
+        MouseManager.Prime(this.playerBoard, new Vector3(-5, 0, -10));
 
-        WorldRenderer.Render(board, new Vector3(-5, 0, -10));
+        WorldRenderer.Render(this.playerBoard, new Vector3(-5, 0, -10));
 
         UserDisplay.DisplayToPlayer("Select missile silo Location");
+        //Sets number of silos allowed to be placed
+        silo=3;
 
         PrepForSiloSelection();
     }
@@ -31,6 +34,8 @@ public class UserPlayer : Player
      * If the player has enough silos, you're done
      * Otherwise, insert MouseManager.OnTileSelect -= SiloSelectionResponse and call ready_up();
      */
+
+     //Assignment Variable for number of silo to place
     public void SiloSelectionResponse(BoardTile tile)
     {
         int x;
@@ -41,10 +46,17 @@ public class UserPlayer : Player
         {
             this.playerBoard.SetMissileSilo(x,y);
             UserDisplay.DisplayToPlayer("Silo Placed");
+            silo --;
         }
         else
         {
+            MouseManager.OnTileSelect -= SiloSelectionResponse;
             UserDisplay.DisplayToPlayer("Silo already exists in this location");
+        }
+
+        if(silo<=0)
+        {
+            ready_up();
         }
 
 
