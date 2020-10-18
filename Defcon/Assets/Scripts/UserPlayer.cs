@@ -16,13 +16,36 @@ public class UserPlayer : Player
         WorldRenderer.Render(board, new Vector3(-5, 0, -10));
 
         UserDisplay.DisplayToPlayer("Select silo locations with the mouse button.");
+
+        PrepForSiloSelection();
     }
 
-    ///Prepare for silo selection function
+    public void PrepForSiloSelection()
+    {
+        MouseManager.OnTileSelect += SiloSelectionResponse;
+    }
     
-    ///Respond to silo selection
+    /* TODO:
+     * Place a silo on the tile called, if possible
+     * If the player has enough silos, you're done
+     * Otherwise, insert MouseManager.OnTileSelect -= SiloSelectionResponse and call ready_up();
+     */
+    public void SiloSelectionResponse(BoardTile tile)
+    {
+
+    }
     
-    /// Prepare for missile target
-    
-    ///Respond to missile target
+    public void PrepForMissileSelection()
+    {
+        MouseManager.OnTileSelect += RegisterMissile;
+    }
+
+    /* Fire the missile by registering to the opponents Board's Missile manager. If more fields/helper functions are needed,
+     * create them
+     * Also, make sure to unsubscribe (-=) once enough missiles have been fired
+     */
+    public void RegisterMissile(BoardTile tile)
+    {
+        
+    }
 }

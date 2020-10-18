@@ -29,9 +29,9 @@ public class MouseManager : MonoBehaviour
             highlighter.position = round_point(point);
         }
 
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && convert_point_to_tile(highlighter.position) != null && OnTileSelect != null)
         {
-            Debug.Log(!(convert_point_to_tile(highlighter.position) == null));
+            OnTileSelect(convert_point_to_tile(highlighter.position));
         }
     }
 
@@ -67,4 +67,20 @@ public class MouseManager : MonoBehaviour
 
         return null;
     }
+
+    /* EXPLANATION:
+    * If I have a function of the form void FUNCTION_NAME(BoardTile ARGUMENTNAME),
+    * then I can add it to the OnTileSelect event by:
+    * 
+    * somewhere in code, writing the following:
+    * MouseManager.OnTileSelect += FUNCTION_NAME;
+    * 
+    * If you do this, you MUST, in the FUNCTION_NAME's declaration, include the statement
+    * 
+    * MouseManager.OnTileSelect -= FUNCTION_NAME
+    * 
+    * When the user selects a tile, any function that has been +='ed but not -='ed will be called
+    */
+    public delegate void onTileSelect(BoardTile selected);
+    public static event onTileSelect OnTileSelect;
 }
