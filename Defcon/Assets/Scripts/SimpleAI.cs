@@ -13,7 +13,7 @@ public class SimpleAI : Player
         // shoot a missile from each available silo, based on highest population
         // Issue --- need to make sure that the same place isn't shot at multiple times -Pamela
         for(int k = 0; k < allSilos.Count; k++){
-            //check to make sure silo isn't empty or destroyed
+            // COMPILER ISSUE --- check to make sure silo isn't empty or destroyed
             if(allSilos[k].Fire_Missiles())
             {
                 for(int i = 0; i < 10; i++){
@@ -22,7 +22,8 @@ public class SimpleAI : Player
                             target = enemyBoard.GetTile(i,j);
                     }
                 }
-                enemyBoard.getMissileManager().RegisterMissile(target.x, target.y);
+                // COMPILER ISSUE --- get target's x and y values for registering, get Missile Manager access for registering
+                enemyBoard.getMissileManager().RegisterMissile(target.getWidth(), target.getHeight());
             }
         }
         end_decision();
