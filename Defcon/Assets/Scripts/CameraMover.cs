@@ -5,10 +5,10 @@ using UnityEngine;
 public class CameraMover : MonoBehaviour
 {
     [SerializeField]
-    float cameraHeight;
+    float cameraHeight = 0;
 
     [SerializeField]
-    float cameraSpeed;
+    float cameraSpeed = 0;
 
     // Update is called once per frame
     void Update()

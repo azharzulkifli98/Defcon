@@ -24,7 +24,6 @@ public class SimpleAI : Player
                             target = enemyBoard.GetTile(i,j);
                     }
                 }
-                // COMPILER ISSUE --- get target's x and y values for registering, get Missile Manager access for registering
                 enemyBoard.GetMissileManager().RegisterMissile(target.GetX(), target.GetY());
             }
         }

@@ -48,15 +48,16 @@ public class UserPlayer : Player
             UserDisplay.DisplayToPlayer("Silo Placed");
             silo --;
             WorldRenderer.Render(this.playerBoard, Vector3.zero);
+            MouseManager.Prime(this.playerBoard, Vector3.zero);
         }
         else
         {
-            MouseManager.OnTileSelect -= SiloSelectionResponse;
             UserDisplay.DisplayToPlayer("Silo already exists in this location");
         }
 
         if(silo<=0)
         {
+            MouseManager.OnTileSelect -= SiloSelectionResponse;
             ready_up();
         }
 

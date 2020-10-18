@@ -8,7 +8,7 @@ public class MouseManager : MonoBehaviour
     static Vector3 offset;
 
     [SerializeField]
-    Transform highlighter;
+    Transform highlighter = null;
 
     public static void Prime(Board b1, Vector3 offset1)
     {
