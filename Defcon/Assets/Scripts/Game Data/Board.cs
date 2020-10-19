@@ -26,7 +26,7 @@ public class Board
         tiles = new BoardTile[10, 10];
 
         // need locations to be distinct
-        System.Random r = new System.Random();
+        System.Random r = new System.Random(UnityEngine.Random.Range(int.MinValue, int.MaxValue)) ;
         int c1 = 0;
         int c2 = 0;
         int c3 = 0;

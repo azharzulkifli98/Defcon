@@ -8,7 +8,13 @@ public class UserPlayer : Player
 
     public override void make_decision(Board playerBoard, Board enemyBoard)
     {
-        
+        MouseManager.Prime(enemyBoard, Vector3.zero);
+
+        WorldRenderer.Render(enemyBoard, Vector3.zero);
+
+        UserDisplay.DisplayToPlayer("You're looking at your opponents board. Select a target to hit");
+
+        PrepForMissileSelection();
     }
 
     public override void set_silos()

@@ -35,7 +35,7 @@ public class SimpleAI : Player
     {
         int placed = 0;
         int j = 0;
-        while (placed < 5)
+        while (placed < 3)
         {
             // avoid placing on cities or radars
             if (this.playerBoard.GetTile(0, j).GetStruct() == null)
