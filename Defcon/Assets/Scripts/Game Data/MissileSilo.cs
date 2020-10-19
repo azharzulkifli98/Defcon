@@ -26,6 +26,11 @@ public class MissileSilo : Structure
         return missile_count;
     }
 
+    public bool Can_Fire_Missile()
+    {
+        return missile_count > 0 && !IsDestroyed();
+    }
+
     // Decrement missile count and return true if missile_count > 0
     // otherwise, return false and do nothing
     public bool Fire_Missile()

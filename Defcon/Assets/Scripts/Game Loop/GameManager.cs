@@ -70,12 +70,15 @@ public class GameManager : MonoBehaviour
     {
         if(player == p1)
         {
+            // MissileManager.UpdateLaunches()
+            // MissileManager.GetLandingMissiles()
             StartTurn(p2);
         }else if (player == p2)
         {
             StartTurn(p1);
         }
     }
+
     public static void NextRound()
     {
         //checks for errors

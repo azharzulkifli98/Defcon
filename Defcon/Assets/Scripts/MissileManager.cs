@@ -38,11 +38,6 @@ public class MissileManager //Missile manager inherits from nothing
     List<MissileLaunch> missileLaunches = new List<MissileLaunch>();
 
     /// <summary>
-    /// The board assigned to this missile manager
-    /// </summary>
-//    Board board = null;
-
-    /// <summary>
     /// Registers a new missile launch on this MissileManager's board, to land
     /// MISSILE_LIFE_TIME turns from now
     /// </summary>

@@ -5,6 +5,7 @@ using UnityEngine;
 public class UserPlayer : Player
 {
     int silo;
+
     public override void make_decision(Board playerBoard, Board enemyBoard)
     {
         
@@ -26,7 +27,6 @@ public class UserPlayer : Player
     public void PrepForSiloSelection()
     {
         MouseManager.OnTileSelect += SiloSelectionResponse;
-
     }
     
     /* TODO:
