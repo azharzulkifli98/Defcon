@@ -7,6 +7,7 @@ public class SimpleAI : Player
     {
         //check all tiles on personal board for available silos
         List<MissileSilo> allSilos = playerBoard.GetAllSilos();
+        HashSet<BoardTile> hitTiles = new HashSet<BoardTile>(); 
 
         BoardTile target = enemyBoard.GetTile(0, 0);
 
@@ -20,10 +21,11 @@ public class SimpleAI : Player
             {
                 for(int i = 0; i < 10; i++){
                     for(int j = 0; j < 10; j++){
-                        if (target.GetPopulation() < enemyBoard.GetTile(i,j).GetPopulation())
+                        if ((target.GetPopulation() < enemyBoard.GetTile(i,j).GetPopulation()) && !hitTiles.Contains(target))
                             target = enemyBoard.GetTile(i,j);
                     }
                 }
+                hitTiles.Add(target);
                 enemyBoard.GetMissileManager().RegisterMissile(target.GetX(), target.GetY());
             }
         }
