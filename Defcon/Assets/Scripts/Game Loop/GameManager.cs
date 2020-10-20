@@ -55,12 +55,10 @@ public class GameManager : MonoBehaviour
         //find player board (render)
         if (player == p1)
         {
-            Debug.Log("player1 turn start");
             player.make_decision(b1, b2);
         }
         else
         {
-            Debug.Log("player2 turn start");
             player.make_decision(b2, b1);
         }
     }
@@ -73,15 +71,25 @@ public class GameManager : MonoBehaviour
     {
         if (player == p1)
         {
-            Debug.Log("player1 yield");
-            // MissileManager.UpdateLaunches()
-            // MissileManager.GetLandingMissiles()
+            b2.GetMissileManager().UpdateLaunches();
+            
+            foreach(MissileManager.MissileLaunch launch in b2.GetMissileManager().GetLandingMissiles())
+            {
+                b2.Impact(launch.x, launch.y);
+            }
+
             StartTurn(p2);
             NextRound();   
         }
         else if (player == p2)
         {
-            Debug.Log("player2 yield");
+            b1.GetMissileManager().UpdateLaunches();
+
+            foreach (MissileManager.MissileLaunch launch in b1.GetMissileManager().GetLandingMissiles())
+            {
+                Debug.Log("Landing at " + launch.x + ", " + launch.y);
+                b1.Impact(launch.x, launch.y);
+            }
             StartTurn(p1);
             NextRound();
         }
@@ -92,9 +100,9 @@ public class GameManager : MonoBehaviour
         // TODO check for errors
         
         // End the game when a player is out of missiles
-        if (b2.GetAllSilos().All(silo => !silo.Can_Fire_Missile()))
+        if (b2.GetAllSilos().All(silo => !silo.Can_Fire_Missile()) && b1.GetMissileManager().NoMissiles())
             EndGame(p1);
-        if (b1.GetAllSilos().All(silo => !silo.Can_Fire_Missile()))
+        if (b1.GetAllSilos().All(silo => !silo.Can_Fire_Missile()) && b2.GetMissileManager().NoMissiles())
             EndGame(p2);
     }
 

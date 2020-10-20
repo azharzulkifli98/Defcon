@@ -119,4 +119,47 @@ public class Board
     {
         return tiles.GetLength(1);
     }
+
+    public void Impact(int x, int y)
+    {
+        if(0 <= x && x < GetWidth() && y >= 0 && y < GetHeight())
+        {
+            tiles[x, y].OnDirectHit();                   
+        }
+
+        if (0 <= x + 1 && x + 1 < GetWidth() && y - 1 >= 0 && y - 1 < GetHeight())
+        {
+            tiles[x + 1, y - 1].OnIndirectHit();
+        }
+        if (0 <= x + 1 && x + 1 < GetWidth() && y >= 0 && y < GetHeight())
+        {
+            tiles[x + 1, y].OnIndirectHit();
+        }
+        if (0 <= x + 1 && x + 1 < GetWidth() && y + 1 >= 0 && y + 1< GetHeight())
+        {
+            tiles[x + 1, y + 1].OnIndirectHit();
+        }
+
+        if (0 <= x && x < GetWidth() && y - 1 >= 0 && y - 1 < GetHeight())
+        {
+            tiles[x, y - 1].OnIndirectHit();
+        }
+        if (0 <= x && x < GetWidth() && y + 1 >= 0 && y + 1 < GetHeight())
+        {
+            tiles[x, y + 1].OnIndirectHit();
+        }
+
+        if (0 <= x - 1 && x - 1 < GetWidth() && y - 1 >= 0 && y - 1 < GetHeight())
+        {
+            tiles[x - 1, y - 1].OnIndirectHit();
+        }
+        if (0 <= x - 1 && x - 1 < GetWidth() && y >= 0 && y < GetHeight())
+        {
+            tiles[x - 1, y].OnIndirectHit();
+        }
+        if (0 <= x - 1 && x - 1 < GetWidth() && y + 1 >= 0 && y + 1 < GetHeight())
+        {
+            tiles[x - 1, y + 1].OnIndirectHit();
+        }
+    }
 }

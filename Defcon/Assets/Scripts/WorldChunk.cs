@@ -74,12 +74,12 @@ public class WorldChunk : MonoBehaviour
         {
             if (tile.GetStruct().GetID() == "Missile_Silo")
             {
-                GameObject prefab = Resources.Load<GameObject>("Prefabs/Silo");
-                Instantiate(prefab, transform).transform.position = center;
+                GameObject prefab = tile.GetStruct().IsDestroyed() ? Resources.Load<GameObject>("Prefabs/Ruined Silo") : Resources.Load<GameObject>("Prefabs/Silo");
+                Instantiate(prefab, transform).transform.position = transform.TransformPoint(center);
             }
             if (tile.GetStruct().GetID() == "City")
             {
-                GameObject prefab = Resources.Load<GameObject>("Prefabs/City");
+                GameObject prefab = tile.GetStruct().IsDestroyed()? Resources.Load<GameObject>("Prefabs/Ruined City"): Resources.Load<GameObject>("Prefabs/City");
                 Instantiate(prefab, transform).transform.position = transform.TransformPoint(center);
             }
         }

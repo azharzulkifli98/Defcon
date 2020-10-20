@@ -24,6 +24,7 @@ public abstract class Structure
     // set structure status to destroyed
     public void Destroy()
     {
+        Debug.Log("The structure " + GetID() + " was destroyed.");
         is_destroyed = true;
     }
 }

@@ -11,7 +11,7 @@ public class MissileManager //Missile manager inherits from nothing
     /// <summary>
     /// The number of turns until the missile lands
     /// </summary>
-    const int MISSILE_LIFE_TIME = 2;
+    const int MISSILE_LIFE_TIME = 1;
 
     /// <summary>
     /// Stores data about the timing and targeted location of each missile launch 
@@ -53,12 +53,15 @@ public class MissileManager //Missile manager inherits from nothing
     /// </summary>
     public void UpdateLaunches()
     {
-        foreach(MissileLaunch launch in missileLaunches)
+        for (int i = 0; i < missileLaunches.Count; i++)
         {
-            launch.missileCounter--;
+            missileLaunches[i].missileCounter--;
 
-            if (launch.missileCounter < 0)
-                missileLaunches.Remove(launch);
+            if (missileLaunches[i].missileCounter < 0)
+            {
+                missileLaunches.Remove(missileLaunches[i]);
+                i--;
+            }
         }
     }
 
@@ -69,13 +72,20 @@ public class MissileManager //Missile manager inherits from nothing
     {
         List<MissileLaunch> landing = new List<MissileLaunch>();
 
-        foreach(MissileLaunch launch in missileLaunches)
+        foreach (MissileLaunch launch in missileLaunches)
         {
             if (launch.missileCounter == 0)
+            {
                 landing.Add(launch);
+            }
         }
 
         return landing;
+    }
+
+    public bool NoMissiles()
+    {
+        return missileLaunches.Count == 0;
     }
 }
 

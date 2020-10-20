@@ -6,11 +6,16 @@ public class WorldRenderer
 {
     const int MAX_DIM = 10;
 
+    static Vector3 offset = new Vector3(-5, 0, -10);
+
     static List<WorldChunk> worldChunks = new List<WorldChunk>();
 
-    public static void Render(Board board, Vector3 offset)
+
+    public static void Render(Board board)
     {
         FlushChunks();
+
+        MouseManager.Prime(board, offset);
 
         for (int x = 0; x < board.GetWidth() + MAX_DIM; x += MAX_DIM)
         {

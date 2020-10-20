@@ -6,22 +6,22 @@ public class UserPlayer : Player
 {
     int silo;
 
-    public override void make_decision(Board playerBoard, Board enemyBoard)
-    {
-        MouseManager.Prime(enemyBoard, Vector3.zero);
+    Board enemyBoard;
 
-        WorldRenderer.Render(enemyBoard, Vector3.zero);
+    public override void make_decision(Board playerBoard, Board enemyBoard)
+    { 
+        WorldRenderer.Render(enemyBoard);
 
         UserDisplay.DisplayToPlayer("You're looking at your opponents board. Select a target to hit");
+
+        this.enemyBoard = enemyBoard;
 
         PrepForMissileSelection();
     }
 
     public override void set_silos()
     {
-        MouseManager.Prime(this.playerBoard, new Vector3(-5, 0, -10));
-
-        WorldRenderer.Render(this.playerBoard, new Vector3(-5, 0, -10));
+        WorldRenderer.Render(this.playerBoard);
 
         UserDisplay.DisplayToPlayer("Select missile silo Location");
         //Sets number of silos allowed to be placed
@@ -53,8 +53,7 @@ public class UserPlayer : Player
             this.playerBoard.SetMissileSilo(x,y);
             UserDisplay.DisplayToPlayer("Silo Placed");
             silo --;
-            WorldRenderer.Render(this.playerBoard, Vector3.zero);
-            MouseManager.Prime(this.playerBoard, Vector3.zero);
+            WorldRenderer.Render(this.playerBoard);
         }
         else
         {
@@ -66,10 +65,6 @@ public class UserPlayer : Player
             MouseManager.OnTileSelect -= SiloSelectionResponse;
             ready_up();
         }
-
-
-
-
     }
     
     public void PrepForMissileSelection()
@@ -83,8 +78,7 @@ public class UserPlayer : Player
      */
     public void RegisterMissile(BoardTile tile)
     {
-        // temporary code for testing
-        Debug.Log($"player selected tile {tile.GetX()}, {tile.GetY()}");
+        enemyBoard.GetMissileManager().RegisterMissile(tile.GetX(), tile.GetY());
         MouseManager.OnTileSelect -= RegisterMissile;
         end_decision();
     }
