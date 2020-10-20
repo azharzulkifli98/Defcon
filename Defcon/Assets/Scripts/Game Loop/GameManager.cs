@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static string EndSceneName = "EndScene";
     private static Board b1;
     private static Board b2;
     private static Player p1;
@@ -18,7 +20,7 @@ public class GameManager : MonoBehaviour
         StartGame(new SimpleAI(), new Board(), new UserPlayer(), new Board());
     }
 
-    public static void StartGame(Player p1,Board b1,Player p2, Board b2)
+    public static void StartGame(Player p1, Board b1, Player p2, Board b2)
     {
         p1_ready = false;
         p2_ready = false;
@@ -34,14 +36,15 @@ public class GameManager : MonoBehaviour
 
     public static void PlayerReady(Player player)
     {
-        if(player == p1)
+        if (player == p1)
         {
             p1_ready = true;
-        }else if (player == p2)
+        }
+        else if (player == p2)
         {
             p2_ready = true;
         }
-        if(p1_ready && p2_ready)
+        if (p1_ready && p2_ready)
         {
             StartTurn(p1);
         }
@@ -50,14 +53,14 @@ public class GameManager : MonoBehaviour
     public static void StartTurn(Player player)
     {
         //find player board (render)
-        if(player == p1)
+        if (player == p1)
         {
-            Debug.Log("P1");
+            Debug.Log("player1 turn start");
             player.make_decision(b1, b2);
         }
         else
         {
-            Debug.Log("P2");
+            Debug.Log("player2 turn start");
             player.make_decision(b2, b1);
         }
     }
@@ -68,24 +71,36 @@ public class GameManager : MonoBehaviour
     /// <param name="player"></param>
     public static void YieldTurn(Player player)
     {
-        if(player == p1)
+        if (player == p1)
         {
+            Debug.Log("player1 yield");
             // MissileManager.UpdateLaunches()
             // MissileManager.GetLandingMissiles()
             StartTurn(p2);
-        }else if (player == p2)
+            NextRound();   
+        }
+        else if (player == p2)
         {
+            Debug.Log("player2 yield");
             StartTurn(p1);
+            NextRound();
         }
     }
 
     public static void NextRound()
     {
-        //checks for errors
-        //checks for endgame conditions
-        // call EndGame() if condition is met
+        // TODO check for errors
+        
+        // End the game when a player is out of missiles
+        if (b2.GetAllSilos().All(silo => !silo.Can_Fire_Missile()))
+            EndGame(p1);
+        if (b1.GetAllSilos().All(silo => !silo.Can_Fire_Missile()))
+            EndGame(p2);
     }
 
+    static void EndGame(Player winner){
+        SceneManager.LoadScene(EndSceneName);
+    }
 
 
     /* Instead of prepping functions, I actually think this will be easier
@@ -115,20 +130,3 @@ public class GameManager : MonoBehaviour
      * I'd advise a lot of helper functions and a ton of documentation
      */
 }
-
-
-// int main()
-// {
-//     //Create game manager object
-//     //start game
-//     //loop
-//     //start turn{
-//         //find/display player board
-//         //if action not taken (return)
-//         //prompt ()
-//         //}
-//     //Same but for P2
-
-//     //end loop if(xyz)
-
-// }

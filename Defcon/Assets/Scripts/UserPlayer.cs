@@ -83,6 +83,9 @@ public class UserPlayer : Player
      */
     public void RegisterMissile(BoardTile tile)
     {
-        
+        // temporary code for testing
+        Debug.Log($"player selected tile {tile.GetX()}, {tile.GetY()}");
+        MouseManager.OnTileSelect -= RegisterMissile;
+        end_decision();
     }
 }
