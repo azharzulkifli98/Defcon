@@ -83,6 +83,21 @@ public class Board
         tiles[given_x, given_y].SetStruct(m);
     }
 
+    public int GetTotalPopulation()
+    {
+        BoardTile temp;
+        int population=0;
+        for(int i=0;i<10;i++)
+        {
+            for(int j=0;j<10;j++)
+            {
+                temp=tiles[i,j];
+                population+=temp.GetPopulation();
+
+            }
+        }
+        return population;
+    }
 
     public MissileManager GetMissileManager()
     {

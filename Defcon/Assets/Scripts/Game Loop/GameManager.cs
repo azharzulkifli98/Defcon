@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     private static bool p1_ready;
     private static bool p2_ready;
 
+
+
+
     private void Start()
     {
         StartGame(new SimpleAI(), new Board(), new UserPlayer(), new Board());
@@ -100,13 +103,19 @@ public class GameManager : MonoBehaviour
         // TODO check for errors
         
         // End the game when a player is out of missiles
+        //If all silos cannot fire missile and no missile are in the air
         if (b2.GetAllSilos().All(silo => !silo.Can_Fire_Missile()) && b1.GetMissileManager().NoMissiles())
             EndGame(p1);
         if (b1.GetAllSilos().All(silo => !silo.Can_Fire_Missile()) && b2.GetMissileManager().NoMissiles())
             EndGame(p2);
     }
 
+
+
+    //TO DO: Impliment score keeping system, Determine winner using previous board
+//Score tabulation must be based on the initial board configurations
     static void EndGame(Player winner){
+        Debug.Log(b1.GetTotalPopulation());
         SceneManager.LoadScene(EndSceneName);
         Debug.Log(winner);
     }

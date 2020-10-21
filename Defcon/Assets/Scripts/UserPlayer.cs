@@ -15,6 +15,7 @@ public class UserPlayer : Player
         UserDisplay.DisplayToPlayer("You're looking at your opponents board. Select a target to hit");
 
         this.enemyBoard = enemyBoard;
+        Debug.Log(enemyBoard.GetTotalPopulation());
 
         PrepForMissileSelection();
     }

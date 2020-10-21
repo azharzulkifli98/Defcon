@@ -15,6 +15,7 @@ public abstract class Player //abstract denotes that this class has abstract fun
     /// </summary>
     public void end_decision()
     {
+        
         GameManager.YieldTurn(this);
     }
     public void set_player_board(Board playerBoard)
