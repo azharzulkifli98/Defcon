@@ -108,6 +108,7 @@ public class GameManager : MonoBehaviour
 
     static void EndGame(Player winner){
         SceneManager.LoadScene(EndSceneName);
+        Debug.Log(winner);
     }
 
 
