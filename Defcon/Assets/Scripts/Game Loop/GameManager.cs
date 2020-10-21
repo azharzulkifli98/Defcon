@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     private static bool p1_ready;
     private static bool p2_ready;
 
+    private static int b1InitPop;
+    private static int b2InitPop;
+
 
 
 
@@ -31,6 +34,8 @@ public class GameManager : MonoBehaviour
         GameManager.b1 = b1;
         GameManager.p2 = p2;
         GameManager.b2 = b2;
+        GameManager.b1InitPop=b1.GetTotalPopulation();
+        GameManager.b2InitPop=b2.GetTotalPopulation();
         p1.set_player_board(b1);
         p2.set_player_board(b2);
         p1.set_silos();
@@ -105,19 +110,31 @@ public class GameManager : MonoBehaviour
         // End the game when a player is out of missiles
         //If all silos cannot fire missile and no missile are in the air
         if (b2.GetAllSilos().All(silo => !silo.Can_Fire_Missile()) && b1.GetMissileManager().NoMissiles())
-            EndGame(p1);
+            EndGame();
         if (b1.GetAllSilos().All(silo => !silo.Can_Fire_Missile()) && b2.GetMissileManager().NoMissiles())
-            EndGame(p2);
+            EndGame();
     }
 
 
 
     //TO DO: Impliment score keeping system, Determine winner using previous board
 //Score tabulation must be based on the initial board configurations
-    static void EndGame(Player winner){
-        Debug.Log(b1.GetTotalPopulation());
+    static void EndGame(){
         SceneManager.LoadScene(EndSceneName);
-        Debug.Log(winner);
+        int Killp1= b1InitPop-p1.playerBoard.GetTotalPopulation();
+        int Killp2=b2InitPop-p2.playerBoard.GetTotalPopulation();
+        if (Killp1>Killp2)
+        {
+            Debug.Log("Player 1 has won");
+            Debug.Log(Killp1);
+        }
+        else
+        {
+            Debug.Log("Player 2 has won");
+            Debug.Log(Killp2);
+        }
+        Debug.Log(Killp1);
+        
     }
 
 
