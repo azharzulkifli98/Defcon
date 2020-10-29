@@ -2,12 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This object inherits from Player and lets the player decide what to do using make_decision() and set_silos()
+/// also uses enemyboard to handle missiles fired by player
+///     make_decision -> PrepForMissleSelection -> RegisterMissile -> end_decision
+///     set_silo -> PrepForSiloSelection -> SiloSelectionResponse -> ready_up
+/// </summary>
 public class UserPlayer : Player
 {
+    // number of silos player can use
     int silo;
-
+    // board that player will fire missiles at
     Board enemyBoard;
 
+
+    /// <summary>
+    /// called by the Game Manager, first renders enemy board then calls PrepForMissileSelection
+    /// which will add a missile the the MissileManager given the tile the player selected
+    /// </summary>
     public override void make_decision(Board playerBoard, Board enemyBoard)
     { 
         WorldRenderer.Render(enemyBoard);
@@ -20,6 +32,10 @@ public class UserPlayer : Player
         PrepForMissileSelection();
     }
 
+    /// <summary>
+    /// also called by the Game Manager, renders the player board then calls PrepForMissileSelection
+    /// so that the player can mouse over the tiles and place down silos
+    /// </summary>
     public override void set_silos()
     {
         WorldRenderer.Render(this.playerBoard);
@@ -31,18 +47,13 @@ public class UserPlayer : Player
         PrepForSiloSelection();
     }
 
+    // not sure if this can be combined with another function or not -Azhar
     public void PrepForSiloSelection()
     {
         MouseManager.OnTileSelect += SiloSelectionResponse;
     }
-    
-    /* TODO:
-     * Place a silo on the tile called, if possible
-     * If the player has enough silos, you're done
-     * Otherwise, insert MouseManager.OnTileSelect -= SiloSelectionResponse and call ready_up();
-     */
 
-     //Assignment Variable for number of silo to place
+     // Assignment Variable for number of silo to place
     public void SiloSelectionResponse(BoardTile tile)
     {
         int x;

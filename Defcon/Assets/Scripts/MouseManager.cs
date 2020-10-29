@@ -16,6 +16,7 @@ public class MouseManager : MonoBehaviour
         MouseManager.offset = offset1;
     }
 
+    // handles raycasting of the mouse on screen
     public void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -40,6 +41,10 @@ public class MouseManager : MonoBehaviour
         return new Vector3(Mathf.Round(point.x), 0, Mathf.Round(point.z));
     }
 
+    /// <summary>
+    /// uses round_point() to get the tile that the mouse is hovering over
+    /// returns a tile or null if it the mouse isn't in range
+    /// </summary>
     public BoardTile convert_point_to_tile(Vector3 point)
     {
         int x = Mathf.RoundToInt(point.x);

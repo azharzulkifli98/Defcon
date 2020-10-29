@@ -3,11 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This object is used for holding all the data the player needs to know about the board
+/// Both players will have one initialized at start of game
+/// </summary>
 public class Board
 {
     BoardTile[,] tiles = null;
 
-    // with add up when tiles[,] is filled
+    // will add up when tiles[,] is filled
     int total_population = 0;
 
     // deals with missiles aimed at board
@@ -27,42 +31,42 @@ public class Board
 
         // need locations to be distinct
         System.Random r = new System.Random(UnityEngine.Random.Range(int.MinValue, int.MaxValue)) ;
-        int c1 = 0;
-        int c2 = 0;
-        int c3 = 0;
-        bool dupes = true;
-        while (dupes)
+        int city1 = 0;
+        int city2 = 0;
+        int city3 = 0;
+        bool overlappingcities = true;
+        while (overlappingcities)
         {
-            dupes = false;
-            c1 = r.Next(0, 99);
-            c2 = r.Next(0, 99);
-            c3 = r.Next(0, 99);
-            if (c1 == c2 || c2 == c3 || c1 == c3)
+            overlappingcities = false;
+            city1 = r.Next(0, 99);
+            city2 = r.Next(0, 99);
+            city3 = r.Next(0, 99);
+            if (city1 == city2 || city2 == city3 || city1 == city3)
             {
-                dupes = true;
+                overlappingcities = true;
             }
         }
 
-        int pop;
+        int population;
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
                 // checks each city individually, might need list for 5 cities
                 int spot = (i * 10) + j;
-                if (spot == c1 || spot == c2 || spot == c3)
+                if (spot == city1 || spot == city2 || spot == city3)
                 {
                     City c = new City(i, j);
                     AllCities.Add(c);
-                    pop = r.Next(1, 9);
-                    tiles[i, j] = new BoardTile(i, j, pop, c);
-                    total_population = total_population + pop;
+                    population = r.Next(15, 25);
+                    tiles[i, j] = new BoardTile(i, j, population, c);
+                    total_population = total_population + population;
                 }
                 else
                 {
-                    pop = r.Next(1, 9);
-                    tiles[i, j] = new BoardTile(i, j, pop);
-                    total_population = total_population + pop;
+                    population = r.Next(1, 9);
+                    tiles[i, j] = new BoardTile(i, j, population);
+                    total_population = total_population + population;
                 }
             }
         }
@@ -83,6 +87,7 @@ public class Board
         tiles[given_x, given_y].SetStruct(m);
     }
 
+    // gives population of the whole board
     public int GetTotalPopulation()
     {
         BoardTile temp;
@@ -99,6 +104,7 @@ public class Board
         return population;
     }
 
+    // returns a reference to the missile manager object
     public MissileManager GetMissileManager()
     {
         return missileManager;
@@ -133,6 +139,7 @@ public class Board
         return tiles.GetLength(1);
     }
 
+    // handles missile hit for direct tile and surrounding tiles
     public void Impact(int x, int y)
     {
         // check all surrounding tiles in loop

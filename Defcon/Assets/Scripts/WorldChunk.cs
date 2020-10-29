@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This object handles rendering of the board for the player to see
+/// it is called by the worldrender object for each of the tiles and handles loading prefabs and materials into the scene
+/// </summary>
 [RequireComponent(typeof(MeshCollider)), RequireComponent(typeof(MeshRenderer)), RequireComponent(typeof(MeshFilter))]
 public class WorldChunk : MonoBehaviour
 {
@@ -62,9 +66,12 @@ public class WorldChunk : MonoBehaviour
         Vector3 bottomLeft = center + Vector3.back * tileSize / 2 + Vector3.left * tileSize / 2;
         Vector3 bottomRight = center + Vector3.back * tileSize / 2 + Vector3.right * tileSize / 2;
 
+        // setting up the size of each tile for rendering? -Azhar
         map.RegisterTriangle(topLeft, topRight, bottomLeft, submesh);
         map.RegisterTriangle(topRight, bottomRight, bottomLeft, submesh);
 
+
+        // here is where we decide what the appearance of the structure should be: silo, city, ruined city, etc
         if(tile.GetStruct() != null)
         {
             if (tile.GetStruct().GetID() == "Missile_Silo")

@@ -4,6 +4,16 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// this object handles all the actions that take place over the game
+/// 
+/// before game starts
+///     Start -> StartGame -> set_player_board -> set_silos -> PlayerReady
+/// during game
+///     PlayerReady -> StartTurn 
+///     StartTurn -> make_decision -> YieldTurn -> StartTurn/NextRound
+///     NextRound -> EndGame
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     public static string EndSceneName = "EndScene";

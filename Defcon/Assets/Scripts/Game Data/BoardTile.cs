@@ -16,7 +16,7 @@ public class BoardTile
     Structure structure;
 
 
-    // Require specification of x, y, pop, and structure. Structure may be null. x, y, pop are nonnegative
+    // Require specification of x, y, pop, and structure. Structure may be null. x, y, population are nonnegative
     public BoardTile(int given_x, int given_y, int given_pop = 1, Structure given_struct = null)
     {
         this.x = given_x;
@@ -25,7 +25,7 @@ public class BoardTile
         this.structure = given_struct;
     }
 
-    // for AI and UI
+    // used for the AI and UI
     public int GetPopulation()
     {
         return population;
@@ -42,9 +42,14 @@ public class BoardTile
     }
 
     // Perform all funcitonality related to a glancing hit (missile hits adjacent tile)
+    // halfs the population each time and destroys structure when it hits zero
     public void OnIndirectHit()
     {
         population /= 2;
+        if (population == 0 && structure != null)
+        {
+            structure.Destroy();
+        }
     }
 
     // Structure needs getter
@@ -67,11 +72,13 @@ public class BoardTile
         }
     }
 
+    // gives the x location of the tile
     public int GetX()
     {
         return x;
     }
 
+    // gives the y location of the tile
     public int GetY()
     {
         return y;
