@@ -5,24 +5,19 @@ using UnityEngine;
 [RequireComponent(typeof(MeshCollider)), RequireComponent(typeof(MeshRenderer)), RequireComponent(typeof(MeshFilter))]
 public class WorldChunk : MonoBehaviour
 {
-    /// <summary>
     /// The size of the tiles renderers create
-    /// </summary>
     const float tileSize = 1;
 
-    /// <summary>
+
     /// A MeshCollider, to be used for creation of a collision mesh we can cast rays to to provide players with a population count tooltip
-    /// </summary>
     new MeshCollider collider;
 
-    /// <summary>
+
     /// The renderer itself, which displays the mesh in the game world
-    /// </summary>
     new MeshRenderer renderer;
 
     MeshFilter filter;
 
-    //TODO: Add additional "Board" argument
     /// <summary>
     /// Renders the world from [minX, maxX) and [minY, maxY)
     /// </summary>

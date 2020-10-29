@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Object stored in Board.cs keeps track of each tile and its values
+/// Also handles population hit calculations
+/// </summary>
 public class BoardTile
 {
     int x;

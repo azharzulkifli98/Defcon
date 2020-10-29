@@ -120,7 +120,6 @@ public class Board
     /// <summary>
     /// Returns the X dimension of this board
     /// </summary>
-    /// <returns></returns>
     public int GetWidth()
     {
         return tiles.GetLength(0);
@@ -129,7 +128,6 @@ public class Board
     /// <summary>
     /// Returns the Y dimension of this board
     /// </summary>
-    /// <returns></returns>
     public int GetHeight()
     {
         return tiles.GetLength(1);
@@ -137,44 +135,26 @@ public class Board
 
     public void Impact(int x, int y)
     {
-        if(0 <= x && x < GetWidth() && y >= 0 && y < GetHeight())
+        // check all surrounding tiles in loop
+        for (int i = x - 1; i <= x + 1; i++)
         {
-            tiles[x, y].OnDirectHit();                   
-        }
-
-        if (0 <= x + 1 && x + 1 < GetWidth() && y - 1 >= 0 && y - 1 < GetHeight())
-        {
-            tiles[x + 1, y - 1].OnIndirectHit();
-        }
-        if (0 <= x + 1 && x + 1 < GetWidth() && y >= 0 && y < GetHeight())
-        {
-            tiles[x + 1, y].OnIndirectHit();
-        }
-        if (0 <= x + 1 && x + 1 < GetWidth() && y + 1 >= 0 && y + 1< GetHeight())
-        {
-            tiles[x + 1, y + 1].OnIndirectHit();
-        }
-
-        if (0 <= x && x < GetWidth() && y - 1 >= 0 && y - 1 < GetHeight())
-        {
-            tiles[x, y - 1].OnIndirectHit();
-        }
-        if (0 <= x && x < GetWidth() && y + 1 >= 0 && y + 1 < GetHeight())
-        {
-            tiles[x, y + 1].OnIndirectHit();
-        }
-
-        if (0 <= x - 1 && x - 1 < GetWidth() && y - 1 >= 0 && y - 1 < GetHeight())
-        {
-            tiles[x - 1, y - 1].OnIndirectHit();
-        }
-        if (0 <= x - 1 && x - 1 < GetWidth() && y >= 0 && y < GetHeight())
-        {
-            tiles[x - 1, y].OnIndirectHit();
-        }
-        if (0 <= x - 1 && x - 1 < GetWidth() && y + 1 >= 0 && y + 1 < GetHeight())
-        {
-            tiles[x - 1, y + 1].OnIndirectHit();
+            for (int j = y - 1; j <= y + 1; j++)
+            {
+                // is this a valid tile
+                if (0 <= i && i < GetWidth() && j >= 0 && j < GetHeight())
+                {
+                    // is this tile a direct hit
+                    if (i == x && j == y)
+                    {
+                        tiles[i, j].OnDirectHit();
+                    }
+                    else
+                    {
+                        tiles[i, j].OnIndirectHit();
+                    }
+                    
+                }
+            }
         }
     }
 }

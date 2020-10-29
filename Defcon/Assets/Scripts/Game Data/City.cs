@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+/// <summary>
+/// Object used to keep track of city locations on the board and their population value
+/// </summary>
 public class City : Structure
 {
 
