@@ -3,20 +3,22 @@ using System.Collections.Generic;
 
 public class SimpleAI : Player
 {
+    /// <summary>
+    ///make decision override for SimpleAI
+    /// </summary>
     public override void make_decision(Board playerBoard, Board enemyBoard)   
     {
-        //check all tiles on personal board for available silos
+        // holds all silos available to player
         List<MissileSilo> allSilos = playerBoard.GetAllSilos();
+
+        // keeps a list of which tiles have been hit
         HashSet<BoardTile> hitTiles = new HashSet<BoardTile>(); 
 
+        // stores enemy target tile, defaulted to 0,0
         BoardTile target = enemyBoard.GetTile(0, 0);
 
         // shoot a missile from each available silo, based on highest population
-        // Issue --- need to make sure that the same place isn't shot at multiple times -Pamela
         for(int k = 0; k < allSilos.Count; k++){
-            // COMPILER ISSUE --- check to make sure silo isn't empty or destroyed
-            // RESOLUTION ---- Fire_Missile will do this naturally. If it's false, then we can't fire
-            // from that silo. Otherwise, we can. Azhar may still be updating with final functionality
             if(allSilos[k].Fire_Missile())
             {
                 for(int i = 0; i < 10; i++){
@@ -25,6 +27,7 @@ public class SimpleAI : Player
                             target = enemyBoard.GetTile(i,j);
                     }
                 }
+                // this keeps track of which target is hit
                 hitTiles.Add(target);
                 enemyBoard.GetMissileManager().RegisterMissile(target.GetX(), target.GetY());
             }
@@ -33,6 +36,7 @@ public class SimpleAI : Player
         return;
     }
 
+    // random setting of silos
     public override void set_silos()
     {
         int placed = 0;
