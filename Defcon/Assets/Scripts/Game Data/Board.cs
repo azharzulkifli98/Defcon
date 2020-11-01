@@ -53,18 +53,21 @@ public class Board
             for (int j = 0; j < 10; j++)
             {
                 // checks each city individually, might need list for 5 cities
+                // In order to make cities more enticing, I increased the possible populations
+                // Is there any other way to incentivize hitting cities? Like increasing populations 
+                // of the tiles around a city (like suburbs) or is that too much?
                 int spot = (i * 10) + j;
                 if (spot == city1 || spot == city2 || spot == city3)
                 {
                     City c = new City(i, j);
                     AllCities.Add(c);
-                    population = r.Next(15, 25);
+                    population = r.Next(25, 35);
                     tiles[i, j] = new BoardTile(i, j, population, c);
                     total_population = total_population + population;
                 }
                 else
                 {
-                    population = r.Next(1, 9);
+                    population = r.Next(1, 15);
                     tiles[i, j] = new BoardTile(i, j, population);
                     total_population = total_population + population;
                 }
