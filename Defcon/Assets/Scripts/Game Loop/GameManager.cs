@@ -131,19 +131,24 @@ public class GameManager : MonoBehaviour
 //Score tabulation must be based on the initial board configurations
     static void EndGame(){
         SceneManager.LoadScene(EndSceneName);
-        int Killp1= b1InitPop-p1.playerBoard.GetTotalPopulation();
-        int Killp2=b2InitPop-p2.playerBoard.GetTotalPopulation();
-        if (Killp1>Killp2)
+
+        // Score keeping system: uses a percentage system instead of a number of kills
+        int killsPlayer1 = b1InitPop - p1.playerBoard.GetTotalPopulation();
+        int killsPlayer2 = b2InitPop - p2.playerBoard.GetTotalPopulation();
+
+        float percentPopPlayer1 = ((float) killsPlayer1) / b1InitPop * 100;
+        float percentPopPlayer2 = ((float) killsPlayer2) / b2InitPop * 100;
+
+        if (percentPopPlayer1 > percentPopPlayer2)
         {
             Debug.Log("Player 1 has won");
-            Debug.Log(Killp1);
+            Debug.Log(percentPopPlayer1);
         }
         else
         {
             Debug.Log("Player 2 has won");
-            Debug.Log(Killp2);
+            Debug.Log(percentPopPlayer2);
         }
-        Debug.Log(Killp1);
         
     }
 
