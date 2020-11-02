@@ -16,7 +16,6 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    public static string EndSceneName = "EndScene";
     private static Board b1;
     private static Board b2;
     private static Player p1;
@@ -44,8 +43,8 @@ public class GameManager : MonoBehaviour
         GameManager.b1 = b1;
         GameManager.p2 = p2;
         GameManager.b2 = b2;
-        GameManager.b1InitPop=b1.GetTotalPopulation();
-        GameManager.b2InitPop=b2.GetTotalPopulation();
+        GameManager.b1InitPop = b1.GetTotalPopulation();
+        GameManager.b2InitPop = b2.GetTotalPopulation();
         p1.set_player_board(b1);
         p2.set_player_board(b2);
         p1.set_silos();
@@ -90,14 +89,14 @@ public class GameManager : MonoBehaviour
         if (player == p1)
         {
             b2.GetMissileManager().UpdateLaunches();
-            
-            foreach(MissileManager.MissileLaunch launch in b2.GetMissileManager().GetLandingMissiles())
+
+            foreach (MissileManager.MissileLaunch launch in b2.GetMissileManager().GetLandingMissiles())
             {
                 b2.Impact(launch.x, launch.y);
             }
 
             StartTurn(p2);
-            NextRound();   
+            NextRound();
         }
         else if (player == p2)
         {
@@ -116,7 +115,7 @@ public class GameManager : MonoBehaviour
     public static void NextRound()
     {
         // TODO check for errors
-        
+
         // End the game when a player is out of missiles
         //If all silos cannot fire missile and no missile are in the air
         if (b2.GetAllSilos().All(silo => !silo.Can_Fire_Missile()) && b1.GetMissileManager().NoMissiles())
@@ -127,29 +126,38 @@ public class GameManager : MonoBehaviour
 
 
 
-    //TO DO: Impliment score keeping system, Determine winner using previous board
-//Score tabulation must be based on the initial board configurations
-    static void EndGame(){
-        SceneManager.LoadScene(EndSceneName);
-
+    // TODO: Impliment score keeping system, Determine winner using previous board
+    // Score tabulation must be based on the initial board configurations
+    static void EndGame()
+    {
         // Score keeping system: uses a percentage system instead of a number of kills
         int killsPlayer1 = b1InitPop - p1.playerBoard.GetTotalPopulation();
         int killsPlayer2 = b2InitPop - p2.playerBoard.GetTotalPopulation();
 
-        float percentPopPlayer1 = ((float) killsPlayer1) / b1InitPop * 100;
-        float percentPopPlayer2 = ((float) killsPlayer2) / b2InitPop * 100;
+        float percentPopPlayer1 = ((float)killsPlayer1) / b1InitPop;
+        float percentPopPlayer2 = ((float)killsPlayer2) / b2InitPop;
 
         if (percentPopPlayer1 > percentPopPlayer2)
         {
+            EndScreen.message = "PLAYER 1 HAS WON\n";
             Debug.Log("Player 1 has won");
             Debug.Log(percentPopPlayer1);
         }
         else
         {
+            EndScreen.message = "PLAYER 2 HAS WON\n";
             Debug.Log("Player 2 has won");
             Debug.Log(percentPopPlayer2);
         }
-        
+
+        EndScreen.message += "PLAYER 1 STATISTICS:\n"
+                           + $"  KILLS: {killsPlayer1,6}\n"
+                           + $"         {percentPopPlayer1,8:P2}\n"
+                           + "PLAYER 2 STATISTICS:\n"
+                           + $"  KILLS: {killsPlayer2,6}\n"
+                           + $"         {percentPopPlayer2,8:P2}\n";
+
+        EndScreen.Load();
     }
 
 
