@@ -14,7 +14,7 @@ public class BoardTile
 
     int population;
     Structure structure;
-
+//Discovery variable
     bool discovered=false;
 
 
@@ -34,6 +34,7 @@ public class BoardTile
     }
 
     // Perform all functionality related to a direct hit (missile hits this target directly)
+    //Shows the discover
     public void OnDirectHit()
     {
         population = 0;
@@ -46,6 +47,7 @@ public class BoardTile
 
     // Perform all funcitonality related to a glancing hit (missile hits adjacent tile)
     // halfs the population each time and destroys structure when it hits zero
+    //Discovers tile
     public void OnIndirectHit()
     {
         population /= 2;
@@ -87,6 +89,7 @@ public class BoardTile
     {
         return y;
     }
+    //Discovery modifier 
     public void SetDiscover(bool selection)
     {
         this.discovered=selection;

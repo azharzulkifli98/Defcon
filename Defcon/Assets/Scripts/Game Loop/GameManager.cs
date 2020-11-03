@@ -37,16 +37,21 @@ public class GameManager : MonoBehaviour
 
     public static void StartGame(Player p1, Board b1, Player p2, Board b2)
     {
+        //No player are ready
         p1_ready = false;
         p2_ready = false;
+        //Possibly useless
         GameManager.p1 = p1;
         GameManager.b1 = b1;
         GameManager.p2 = p2;
         GameManager.b2 = b2;
+        //Gets initial pop for fina lscore calculation
         GameManager.b1InitPop = b1.GetTotalPopulation();
         GameManager.b2InitPop = b2.GetTotalPopulation();
+        //Set the boards
         p1.set_player_board(b1);
         p2.set_player_board(b2);
+        //Call for choosing silos
         p1.set_silos();
         p2.set_silos();
     }
@@ -86,6 +91,7 @@ public class GameManager : MonoBehaviour
     /// <param name="player"></param>
     public static void YieldTurn(Player player)
     {
+        //Next turn basically
         if (player == p1)
         {
             b2.GetMissileManager().UpdateLaunches();
