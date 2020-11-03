@@ -63,6 +63,7 @@ public class Board
                     AllCities.Add(c);
                     population = r.Next(25, 35);
                     tiles[i, j] = new BoardTile(i, j, population, c);
+                    tiles[i,j].SetDiscover(true);
                     total_population = total_population + population;
                 }
                 else

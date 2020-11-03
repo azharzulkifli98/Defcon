@@ -15,6 +15,8 @@ public class BoardTile
     int population;
     Structure structure;
 
+    bool discovered=false;
+
 
     // Require specification of x, y, pop, and structure. Structure may be null. x, y, population are nonnegative
     public BoardTile(int given_x, int given_y, int given_pop = 1, Structure given_struct = null)
@@ -39,6 +41,7 @@ public class BoardTile
         {
             structure.Destroy();
         }
+        this.discovered=true;
     }
 
     // Perform all funcitonality related to a glancing hit (missile hits adjacent tile)
@@ -50,6 +53,7 @@ public class BoardTile
         {
             structure.Destroy();
         }
+        this.discovered=true;
     }
 
     // Structure needs getter
@@ -82,5 +86,9 @@ public class BoardTile
     public int GetY()
     {
         return y;
+    }
+    public void SetDiscover(bool selection)
+    {
+        this.discovered=selection;
     }
 }
