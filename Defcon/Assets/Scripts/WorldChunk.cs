@@ -6,20 +6,18 @@ using UnityEngine;
 /// This object handles rendering of the board for the player to see
 /// it is called by the worldrender object for each of the tiles and handles loading prefabs and materials into the scene
 /// </summary>
-[RequireComponent(typeof(MeshCollider)), RequireComponent(typeof(MeshRenderer)), RequireComponent(typeof(MeshFilter))]
+[RequireComponent(typeof(MeshRenderer)), RequireComponent(typeof(MeshFilter))]
 public class WorldChunk : MonoBehaviour
 {
     /// The size of the tiles renderers create
     const float tileSize = 1;
 
-
-    /// A MeshCollider, to be used for creation of a collision mesh we can cast rays to to provide players with a population count tooltip
-    new MeshCollider collider;
-
-
     /// The renderer itself, which displays the mesh in the game world
     new MeshRenderer renderer;
 
+    /// <summary>
+    /// Common access point for all objects that need the mesh of this object
+    /// </summary>
     MeshFilter filter;
 
     /// <summary>
@@ -31,7 +29,6 @@ public class WorldChunk : MonoBehaviour
     /// <param name="maxY"> The lowest Y value that isn't rendered after minY</param>
     public void Prime(Board board, int minX, int maxX, int minY, int maxY)
     {
-        filter = GetComponent<MeshFilter>();
         renderer = GetComponent<MeshRenderer>();
         filter = GetComponent<MeshFilter>();
 

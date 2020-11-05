@@ -4,19 +4,36 @@ using UnityEngine;
 
 public class MouseManager : MonoBehaviour
 {
+    /// <summary>
+    /// The currently assigned board for this MouseManager
+    /// </summary>
     static Board board;
+
+    /// <summary>
+    /// The offset that this world is using
+    /// </summary>
     static Vector3 offset;
 
+    /// <summary>
+    /// The highlighter being used to keep track of what tile we're on
+    /// </summary>
     [SerializeField]
     Transform highlighter = null;
 
-    public static void Prime(Board b1, Vector3 offset1)
+    /// <summary>
+    /// Primes and prepares the MouseManager for the given board and offset
+    /// </summary>
+    /// <param name="board"></param>
+    /// <param name="offset"></param>
+    public static void Prime(Board board, Vector3 offset)
     {
-        MouseManager.board = b1;
-        MouseManager.offset = offset1;
+        MouseManager.board = board;
+        MouseManager.offset = offset;
     }
 
-    // handles raycasting of the mouse on screen
+    /// <summary>
+    /// Raycasts the mouse onto the world, to help us determine if it is necessary to call OnTileSelect
+    /// </summary>
     public void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -24,18 +41,27 @@ public class MouseManager : MonoBehaviour
 
         float dist;
 
-        if(ground.Raycast(ray, out dist))
+        if (ground.Raycast(ray, out dist))
         {
             Vector3 point = ray.GetPoint(dist);
             highlighter.position = round_point(point);
         }
 
-        if(Input.GetMouseButtonDown(0) && convert_point_to_tile(highlighter.position) != null && OnTileSelect != null)
+        if (convert_point_to_tile(highlighter.position) != null && OnTileSelect != null)
         {
-            OnTileSelect(convert_point_to_tile(highlighter.position));
+            OnTileHover(convert_point_to_tile(highlighter.position));
+            if (Input.GetMouseButtonDown(0))
+            {
+                OnTileSelect(convert_point_to_tile(highlighter.position));
+            }
         }
     }
 
+    /// <summary>
+    /// Rounds the passed point to the nearest full integer x,y,z
+    /// </summary>
+    /// <param name="point"></param>
+    /// <returns></returns>
     public Vector3 round_point(Vector3 point)
     {
         return new Vector3(Mathf.Round(point.x), 0, Mathf.Round(point.z));
@@ -86,6 +112,11 @@ public class MouseManager : MonoBehaviour
     * 
     * When the user selects a tile, any function that has been +='ed but not -='ed will be called
     */
-    public delegate void onTileSelect(BoardTile selected);
-    public static event onTileSelect OnTileSelect;
+    public delegate void onTileEvent(BoardTile selected);
+    public static event onTileEvent OnTileSelect;
+
+    /// <summary>
+    /// Called when the mouse hovers over a given tile
+    /// </summary>
+    public static event onTileEvent OnTileHover;
 }

@@ -4,13 +4,26 @@ using UnityEngine;
 
 public class WorldRenderer
 {
+    /// <summary>
+    /// The maximum width and height of a chunk
+    /// </summary>
     const int MAX_DIM = 10;
 
+    /// <summary>
+    /// The offset from (0,0,0) that the 
+    /// </summary>
     static Vector3 offset = new Vector3(-5, 0, -10);
 
+    /// <summary>
+    /// A list of currently instantiated world chunks
+    /// </summary>
     static List<WorldChunk> worldChunks = new List<WorldChunk>();
 
-
+    /// <summary>
+    /// Renders the given board at the offset.
+    /// TODO: Require an offset and allow the board to be turned around, so we can have two boards face each other
+    /// </summary>
+    /// <param name="board"></param>
     public static void Render(Board board)
     {
         FlushChunks();
