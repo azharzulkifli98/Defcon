@@ -11,7 +11,7 @@ public class BoardTile
 {
     int x;
     int y;
-
+    int init_population;
     int population;
     Structure structure;
 //Discovery variable
@@ -23,6 +23,7 @@ public class BoardTile
     {
         this.x = given_x;
         this.y = given_y;
+        this.init_population = given_pop;
         this.population = given_pop;
         this.structure = given_struct;
     }
@@ -31,6 +32,11 @@ public class BoardTile
     public int GetPopulation()
     {
         return population;
+    }
+
+    public int GetInitPopulation()
+    {
+        return init_population;
     }
 
     // Perform all functionality related to a direct hit (missile hits this target directly)

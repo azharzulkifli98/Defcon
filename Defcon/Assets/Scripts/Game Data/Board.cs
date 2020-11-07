@@ -108,6 +108,22 @@ public class Board
         return population;
     }
 
+    public int GetInitialPopulation()
+    {
+        BoardTile temp;
+        int population=0;
+        for(int i=0;i<10;i++)
+        {
+            for(int j=0;j<10;j++)
+            {
+                temp=tiles[i,j];
+                population+=temp.GetInitPopulation();
+
+            }
+        }
+        return population;
+    }
+
     // returns a reference to the missile manager object
     public MissileManager GetMissileManager()
     {
