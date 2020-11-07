@@ -24,9 +24,6 @@ public class GameManager : MonoBehaviour
     private static bool p1_ready;
     private static bool p2_ready;
 
-    private static int b1InitPop;
-    private static int b2InitPop;
-
 
 
 
@@ -45,9 +42,7 @@ public class GameManager : MonoBehaviour
         GameManager.b1 = b1;
         GameManager.p2 = p2;
         GameManager.b2 = b2;
-        //Gets initial pop for fina lscore calculation
-        GameManager.b1InitPop = b1.GetTotalPopulation();
-        GameManager.b2InitPop = b2.GetTotalPopulation();
+
         //Set the boards
         p1.set_player_board(b1);
         p2.set_player_board(b2);
@@ -137,11 +132,11 @@ public class GameManager : MonoBehaviour
     static void EndGame()
     {
         // Score keeping system: uses a percentage system instead of a number of kills
-        int killsPlayer1 = b1InitPop - p1.playerBoard.GetTotalPopulation();
-        int killsPlayer2 = b2InitPop - p2.playerBoard.GetTotalPopulation();
+        int killsPlayer1 = p1.playerBoard.GetInitialPopulation() - p1.playerBoard.GetTotalPopulation();
+        int killsPlayer2 = p2.playerBoard.GetInitialPopulation() - p2.playerBoard.GetTotalPopulation();
 
-        float percentPopPlayer1 = ((float)killsPlayer1) / b1InitPop;
-        float percentPopPlayer2 = ((float)killsPlayer2) / b2InitPop;
+        float percentPopPlayer1 = ((float)killsPlayer1) / p1.playerBoard.GetInitialPopulation();
+        float percentPopPlayer2 = ((float)killsPlayer2) / p2.playerBoard.GetInitialPopulation();
 
         if (percentPopPlayer1 > percentPopPlayer2)
         {

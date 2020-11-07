@@ -38,7 +38,14 @@ public class WorldChunk : MonoBehaviour
         {
             for(int j = minY; j < maxY; j++)
             {
-                RenderTile(map, board.GetTile(i,j));
+                if (board.GetTile(i,j).GetDiscovered())
+                {
+                    RenderKnownTile(map, board.GetTile(i,j));
+                }
+                else
+                {
+                    RenderUnknownTile(board.GetTile(i,j));
+                }
             }
         }
 
@@ -47,12 +54,26 @@ public class WorldChunk : MonoBehaviour
         renderer.sharedMaterial = Resources.Load<Material>("Materials/Ground");
     }
 
+    public void RenderUnknownTile(BoardTile tile)
+    {
+        Vector3 minPoint = new Vector3(tileSize * tile.GetX() - .5f, 0, tileSize * tile.GetY() - .5f);
+        Vector3 maxPoint = new Vector3(tileSize * tile.GetX() + .5f, 0, tileSize * tile.GetY() + .5f);
+
+        GameObject hiddenTile = new GameObject();
+
+        hiddenTile.transform.parent = transform;
+
+        CloudRenderer renderer = hiddenTile.AddComponent<CloudRenderer>();
+
+        renderer.Prime(transform.TransformPoint(minPoint), transform.TransformPoint(maxPoint));
+    }
+
     /// <summary>
-    /// Renders the tile, including a city or silo if necessary
+    /// Renders an already known tile
     /// </summary>
     /// <param name="map"></param>
     /// <param name="tile"></param>
-    public void RenderTile(TriangleMap map, BoardTile tile)
+    public void RenderKnownTile(TriangleMap map, BoardTile tile)
     {
         int submesh = 0;
 
@@ -69,7 +90,7 @@ public class WorldChunk : MonoBehaviour
 
 
         // here is where we decide what the appearance of the structure should be: silo, city, ruined city, etc
-        if(tile.GetStruct() != null)
+        if (tile.GetStruct() != null)
         {
             if (tile.GetStruct().GetID() == "Missile_Silo")
             {
@@ -78,7 +99,7 @@ public class WorldChunk : MonoBehaviour
             }
             if (tile.GetStruct().GetID() == "City")
             {
-                GameObject prefab = tile.GetStruct().IsDestroyed()? Resources.Load<GameObject>("Prefabs/Ruined City"): Resources.Load<GameObject>("Prefabs/City");
+                GameObject prefab = tile.GetStruct().IsDestroyed() ? Resources.Load<GameObject>("Prefabs/Ruined City") : Resources.Load<GameObject>("Prefabs/City");
                 Instantiate(prefab, transform).transform.position = transform.TransformPoint(center);
             }
         }
