@@ -89,9 +89,19 @@ public class BoardTile
     {
         return y;
     }
+
     //Discovery modifier 
     public void SetDiscover(bool selection)
     {
         this.discovered=selection;
+    }
+
+    /// <summary>
+    /// Returns true if the tile has been discovered so far, false otherwise
+    /// </summary>
+    /// <returns></returns>
+    public bool GetDiscovered()
+    {
+        return this.discovered;
     }
 }
