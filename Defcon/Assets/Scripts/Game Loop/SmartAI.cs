@@ -5,6 +5,7 @@ using UnityEngine;
 public class SmartAI : Player
 {
     // General idea is to target spot with highest point gain
+    // right now it just what the simple AI did
 
     // make decide whether it wants to :
     // fire a missile at a population
@@ -42,20 +43,27 @@ public class SmartAI : Player
     }
 
 
-    // sets silos to be in range of cities
+    // sets silos to be in range for each city
     public override void set_silos()
     {
-        int placed = 0;
-        while (placed < 3)
+        // need to set 3 missile silos
+        for (int k = 0; k < 3; k++)
         {
-            // avoid placing on cities or radars
-            if (this.playerBoard.GetTile(0, j).GetStruct() == null)
+            City c = this.playerBoard.GetAllCities[k];
+            
+            for (int i = c.GetX() - 2; i < 3; i += 2)
             {
-                this.playerBoard.SetMissileSilo(0, j);
-                placed++;
+                for (int j = c.GetY() - 2; j < 3; j += 2)
+                {
+                    if (i >= 0 && i < this.playerBoard.GetWidth() && 
+                        j >= 0 && j < this.playerBoard.GetHeight() && 
+                        this.playerBoard.GetTile(i, j).GetStruct() == null) 
+                    {
+                        // found acceptable tile
+                        this.playerBoard.SetMissileSilo(i, j);
+                    }
+                }
             }
-            j++;
-            // might be good to consider where they are least likely to be targeted
         }
         ready_up();
     }

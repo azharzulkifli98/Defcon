@@ -27,4 +27,17 @@ public abstract class Structure
         Debug.Log("The structure " + GetID() + " was destroyed.");
         is_destroyed = true;
     }
+
+
+    // gives the x location of the tile
+    public int GetX()
+    {
+        return x;
+    }
+
+    // gives the y location of the tile
+    public int GetY()
+    {
+        return y;
+    }
 }
