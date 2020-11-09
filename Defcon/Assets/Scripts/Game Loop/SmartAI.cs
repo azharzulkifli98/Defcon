@@ -49,7 +49,7 @@ public class SmartAI : Player
         // need to set 3 missile silos
         for (int k = 0; k < 3; k++)
         {
-            City c = this.playerBoard.GetAllCities[k];
+            City c = this.playerBoard.GetAllCities()[k];
             
             for (int i = c.GetX() - 2; i < 3; i += 2)
             {
