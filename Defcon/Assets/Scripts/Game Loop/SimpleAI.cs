@@ -17,17 +17,13 @@ public class SimpleAI : Player
         // stores enemy target tile, defaulted to 0,0
         BoardTile target = enemyBoard.GetTile(0, 0);
 
-        // shoot a missile from each available silo, based on highest population
-        for(int k = 0; k < allSilos.Count; k++){
+        // shoot a missile from each available silo, random
+        System.Random r = new System.Random(UnityEngine.Random.Range(int.MinValue, int.MaxValue));
+        for (int k = 0; k < allSilos.Count; k++){
             if(allSilos[k].Fire_Missile())
             {
-                for(int i = 0; i < 10; i++){
-                    for(int j = 0; j < 10; j++){
-                        if ((target.GetPopulation() < enemyBoard.GetTile(i,j).GetPopulation()) && !hitTiles.Contains(target))
-                            target = enemyBoard.GetTile(i,j);
-                    }
-                }
-                // this keeps track of which target is hit
+                // make it target a random tile each time
+                target = enemyBoard.GetTile(r.Next(0, 9), r.Next(0, 9));
                 hitTiles.Add(target);
                 enemyBoard.GetMissileManager().RegisterMissile(target.GetX(), target.GetY());
             }

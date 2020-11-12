@@ -14,6 +14,11 @@ public class MissileManager //Missile manager inherits from nothing
     const int MISSILE_LIFE_TIME = 1;
 
     /// <summary>
+    /// The count value when a missile has been detected
+    /// </summary>
+    const int DETECTED_COUNT = 1;
+
+    /// <summary>
     /// Stores data about the timing and targeted location of each missile launch 
     /// </summary>
     public class MissileLaunch
@@ -81,6 +86,24 @@ public class MissileManager //Missile manager inherits from nothing
         }
 
         return landing;
+    }
+
+    /// <summary>
+    /// Returns all missiles detected in this turn
+    /// </summary>
+    public List<MissileLaunch> GetMissilesInDetection() 
+    {
+        List<MissileLaunch> detected = new List<MissileLaunch>();
+
+        foreach (MissleLaunch launch in missileLaunches)
+        {
+            if (launch.missileCounter == DETECTED_COUNT)
+            {
+                detected.Add(launch);
+            }
+        }
+
+        return detected;
     }
 
     public bool NoMissiles()
