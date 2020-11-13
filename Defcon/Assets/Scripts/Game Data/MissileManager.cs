@@ -95,7 +95,7 @@ public class MissileManager //Missile manager inherits from nothing
     {
         List<MissileLaunch> detected = new List<MissileLaunch>();
 
-        foreach (MissleLaunch launch in missileLaunches)
+        foreach (MissileLaunch launch in missileLaunches)
         {
             if (launch.missileCounter == DETECTED_COUNT)
             {
