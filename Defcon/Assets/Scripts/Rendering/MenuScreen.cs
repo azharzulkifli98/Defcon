@@ -49,12 +49,13 @@ public class MenuScreen : MonoBehaviour
     private string Submit(string input)
     {
         switch (input.ToUpper())
-        {   
+        {
             case "DEFCON":
                 loadGame = true;
                 return "LETS PLAY.";
             case "EXIT":
                 Debug.Log("Exit");
+                StartCoroutine(WaitThenQuit());
                 return "GOODBYE.";
             default:
                 return "I DON'T KNOW THAT GAME.";
@@ -100,7 +101,7 @@ public class MenuScreen : MonoBehaviour
             }
             else
             {
-                if(loadGame)
+                if (loadGame)
                 {
                     Debug.Log("Loading game");
                     SceneManager.LoadScene(BeginScene);
@@ -123,5 +124,12 @@ public class MenuScreen : MonoBehaviour
             if (blinkOn)
                 text.text += "_";
         }
+    }
+
+    public IEnumerator WaitThenQuit()
+    {
+        yield return new WaitForSeconds(5);
+        Application.Quit();
+        Debug.Log("Application Ended");
     }
 }

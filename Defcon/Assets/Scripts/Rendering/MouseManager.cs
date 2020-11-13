@@ -47,9 +47,12 @@ public class MouseManager : MonoBehaviour
             highlighter.position = round_point(point);
         }
 
-        if (convert_point_to_tile(highlighter.position) != null && OnTileHover != null)
+        if (convert_point_to_tile(highlighter.position) != null)
         {
-            OnTileHover(convert_point_to_tile(highlighter.position));
+            if (OnTileHover != null)
+            {
+                OnTileHover(convert_point_to_tile(highlighter.position));
+            }
             if (Input.GetMouseButtonDown(0) && OnTileSelect != null)
             {
                 OnTileSelect(convert_point_to_tile(highlighter.position));
