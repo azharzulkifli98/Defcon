@@ -126,6 +126,26 @@ public class MenuScreen : MonoBehaviour
         }
     }
 
+    private void PlayerVsSimpleAI() 
+    {
+        Debug.Log("User chose: player vs. simple AI");
+    }
+
+    private void SimpleAIVsSmartAI()
+    {
+        Debug.Log("User chose: simple AI vs. smart AI");
+    }
+
+    private void SimpleAIVsSimpleAI()
+    {
+        Debug.Log("User chose: simple AI vs. simple AI");
+    }
+
+    private void SmartAIVsSmartAI()
+    {
+        Debug.Log("User chose: smart AI vs. smart AI");
+    }
+
     public IEnumerator WaitThenQuit()
     {
         yield return new WaitForSeconds(5);
