@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class TextOverlay : MonoBehaviour
 {
     [SerializeField]
@@ -15,7 +16,8 @@ public class TextOverlay : MonoBehaviour
     /// <param name="tile"></param>
     public void OnTileHover(BoardTile tile)
     {
-        throw new System.NotImplementedException();
+       int pop=tile.GetPopulation();
+       Debug.Log(pop.ToString());
     }
 
     /// <summary>
@@ -23,6 +25,7 @@ public class TextOverlay : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        MouseManager.OnTileHover += OnTileHover ;
         
     }
 }
