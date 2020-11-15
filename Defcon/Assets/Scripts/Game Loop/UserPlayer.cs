@@ -22,14 +22,12 @@ public class UserPlayer : Player
     /// </summary>
     public override void make_decision(Board playerBoard, Board enemyBoard)
     { 
-        WorldRenderer.Render(enemyBoard);
-
         UserDisplay.DisplayToPlayer("You're looking at your opponents board. Select a target to hit");
 
         this.enemyBoard = enemyBoard;
         Debug.Log(enemyBoard.GetTotalPopulation());
 
-        PrepForMissileSelection();
+        WorldRenderManager.EnemyBoard.mouseManager.OnTileSelect += RegisterMissile;
     }
 
     /// <summary>
@@ -38,8 +36,6 @@ public class UserPlayer : Player
     /// </summary>
     public override void set_silos()
     {
-        WorldRenderer.Render(this.playerBoard);
-
         UserDisplay.DisplayToPlayer("Select missile silo Location");
         //Sets number of silos allowed to be placed
         silo=3;
@@ -50,7 +46,7 @@ public class UserPlayer : Player
     // not sure if this can be combined with another function or not -Azhar
     public void PrepForSiloSelection()
     {
-        MouseManager.OnTileSelect += SiloSelectionResponse;
+        WorldRenderManager.UserBoard.mouseManager.OnTileSelect += SiloSelectionResponse;
     }
 
      // Assignment Variable for number of silo to place
@@ -65,7 +61,6 @@ public class UserPlayer : Player
             this.playerBoard.SetMissileSilo(x,y);
             UserDisplay.DisplayToPlayer("Silo Placed");
             silo --;
-            WorldRenderer.Render(this.playerBoard);
         }
         else
         {
@@ -74,16 +69,11 @@ public class UserPlayer : Player
 
         if(silo<=0)
         {
-            MouseManager.OnTileSelect -= SiloSelectionResponse;
+            WorldRenderManager.UserBoard.mouseManager.OnTileSelect -= SiloSelectionResponse;
             ready_up();
         }
     }
     
-    public void PrepForMissileSelection()
-    {
-        MouseManager.OnTileSelect += RegisterMissile;
-    }
-
     /* Fire the missile by registering to the opponents Board's Missile manager. If more fields/helper functions are needed,
      * create them
      * Also, make sure to unsubscribe (-=) once enough missiles have been fired
@@ -91,7 +81,8 @@ public class UserPlayer : Player
     public void RegisterMissile(BoardTile tile)
     {
         enemyBoard.GetMissileManager().RegisterMissile(tile.GetX(), tile.GetY());
-        MouseManager.OnTileSelect -= RegisterMissile;
+
+        WorldRenderManager.EnemyBoard.mouseManager.OnTileSelect -= RegisterMissile;
         end_decision();
     }
 }
