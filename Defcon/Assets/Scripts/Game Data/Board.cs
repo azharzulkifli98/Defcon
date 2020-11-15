@@ -184,4 +184,17 @@ public class Board
             }
         }
     }
+
+
+    public delegate void onWorldUpdate();
+
+    public static event onWorldUpdate OnWorldUpdate;
+
+    public static void UpdateWorld()
+    {
+        if (OnWorldUpdate != null)
+        {
+            OnWorldUpdate();
+        }
+    }
 }

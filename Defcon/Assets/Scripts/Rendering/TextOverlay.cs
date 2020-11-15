@@ -14,7 +14,7 @@ public class TextOverlay : MonoBehaviour
     /// also move the text to the necessary position on the screen
     /// </summary>
     /// <param name="tile"></param>
-    public void OnTileHover(BoardTile tile)
+    public void OnTileHover(BoardTile tile, WorldRenderer.WorldRenderMode mode)
     {
        int pop=tile.GetPopulation();
        Debug.Log("over tile");
@@ -25,7 +25,6 @@ public class TextOverlay : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        MouseManager.OnTileHover += OnTileHover ;
-        
+        WorldRenderManager.OnTileHover += OnTileHover;
     }
 }

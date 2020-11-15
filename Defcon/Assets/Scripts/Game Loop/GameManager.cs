@@ -24,16 +24,16 @@ public class GameManager : MonoBehaviour
     private static bool p1_ready;
     private static bool p2_ready;
 
-
-
-
-    private void Start()
+    private void Awake()
     {
-        StartGame(new SimpleAI(), new Board(), new UserPlayer(), new Board());
+        StartGame(new UserPlayer(), new Board(), new SimpleAI(), new Board());
     }
 
     public static void StartGame(Player p1, Board b1, Player p2, Board b2)
     {
+        Board.OnWorldUpdate += WorldRenderManager.UpdateRender;
+
+
         //No player are ready
         p1_ready = false;
         p2_ready = false;
@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour
         GameManager.b1 = b1;
         GameManager.p2 = p2;
         GameManager.b2 = b2;
+
+        WorldRenderManager.RenderUser(b1);
+        WorldRenderManager.RenderEnemy(b2);
 
         //Set the boards
         p1.set_player_board(b1);
@@ -118,7 +121,7 @@ public class GameManager : MonoBehaviour
         // TODO check for errors
 
         // End the game when a player is out of missiles
-        //If all silos cannot fire missile and no missile are in the air
+        // If all silos cannot fire missile and no missile are in the air
         if (b2.GetAllSilos().All(silo => !silo.Can_Fire_Missile()) && b1.GetMissileManager().NoMissiles())
             EndGame();
         if (b1.GetAllSilos().All(silo => !silo.Can_Fire_Missile()) && b2.GetMissileManager().NoMissiles())
@@ -156,10 +159,8 @@ public class GameManager : MonoBehaviour
                            + $"         {percentPopPlayer1,8:P2}\n"
                            + "PLAYER 2 STATISTICS:\n"
                            + $"  KILLS: {killsPlayer2,6}\n"
-                           + $"         {percentPopPlayer2,8:P2}\n";
-
+                           + $"         {percentPopPlayer2,8:P2}\n"
+                           + "PRESS ENTER TO CONTINUE";
         EndScreen.Load();
     }
-
-
 }
