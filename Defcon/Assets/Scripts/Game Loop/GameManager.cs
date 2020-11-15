@@ -26,11 +26,11 @@ public class GameManager : MonoBehaviour
 
     private static GameManager singleton;
 
-    private void Awake()
+    private void Start()
     {
+        singleton = this;
         StartGame(p1, new Board(), p2, new Board());
 
-        singleton = this;
     }
 
     public static void setPlayer1(Player p1)
