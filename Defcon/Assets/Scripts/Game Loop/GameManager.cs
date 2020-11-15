@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviour
     {
         Board.OnWorldUpdate += WorldRenderManager.UpdateRender;
 
-
         //No player are ready
         p1_ready = false;
         p2_ready = false;
@@ -59,6 +58,9 @@ public class GameManager : MonoBehaviour
 
         WorldRenderManager.RenderUser(b1);
         WorldRenderManager.RenderEnemy(b2);
+
+        WorldRenderManager.UserBoard.mouseManager.OnTileHover += WorldRenderManager.WhenUserTileHover;
+        WorldRenderManager.EnemyBoard.mouseManager.OnTileHover += WorldRenderManager.WhenEnemyTileHover;
 
         //Set the boards
         p1.set_player_board(b1);
