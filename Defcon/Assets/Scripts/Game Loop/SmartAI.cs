@@ -29,8 +29,11 @@ public class SmartAI : Player
             {
                 for(int i = 0; i < 10; i++){
                     for(int j = 0; j < 10; j++){
-                        if ((target.GetPopulation() < enemyBoard.GetTile(i,j).GetPopulation()) && !hitTiles.Contains(target))
-                            target = enemyBoard.GetTile(i,j);
+                        if (target.GetDiscovered())
+                        {
+                            if ((target.GetPopulation() < enemyBoard.GetTile(i, j).GetPopulation()) && !hitTiles.Contains(target))
+                                target = enemyBoard.GetTile(i, j);
+                        }
                     }
                 }
                 // this keeps track of which target is hit

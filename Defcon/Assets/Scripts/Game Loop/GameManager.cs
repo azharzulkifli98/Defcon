@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StartGame(new SimpleAI(), new Board(), new UserPlayer(), new Board());
+        StartGame(new SmartAI(), new Board(), new UserPlayer(), new Board());
     }
 
     public static void StartGame(Player p1, Board b1, Player p2, Board b2)
