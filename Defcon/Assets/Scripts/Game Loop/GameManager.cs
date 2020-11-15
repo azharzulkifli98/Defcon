@@ -24,9 +24,13 @@ public class GameManager : MonoBehaviour
     private static bool p1_ready;
     private static bool p2_ready;
 
+    private static GameManager singleton;
+
     private void Awake()
     {
         StartGame(new UserPlayer(), new Board(), new SimpleAI(), new Board());
+
+        singleton = this;
     }
 
     public static void StartGame(Player p1, Board b1, Player p2, Board b2)
@@ -99,7 +103,7 @@ public class GameManager : MonoBehaviour
                 b2.Impact(launch.x, launch.y);
             }
 
-            StartTurn(p2);
+            Delay(p2);
             NextRound();
         }
         else if (player == p2)
@@ -111,7 +115,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Landing at " + launch.x + ", " + launch.y);
                 b1.Impact(launch.x, launch.y);
             }
-            StartTurn(p1);
+            Delay(p1);
             NextRound();
         }
     }
@@ -128,7 +132,19 @@ public class GameManager : MonoBehaviour
             EndGame();
     }
 
+    private static void Delay(Player player)
+    {
+        singleton.StartCoroutine(singleton.DelayCoroutine(player));
+    }
 
+    private IEnumerator DelayCoroutine(Player player)
+    {
+        while(MissileAnimator.IsAnimating())
+        {
+            yield return null;
+        }
+        StartTurn(player);
+    }
 
     // TODO: Impliment score keeping system, Determine winner using previous board
     // Score tabulation must be based on the initial board configurations

@@ -20,12 +20,12 @@ public class SimpleAI : Player
         // shoot a missile from each available silo, random
         System.Random r = new System.Random(UnityEngine.Random.Range(int.MinValue, int.MaxValue));
         for (int k = 0; k < allSilos.Count; k++){
-            if(allSilos[k].Fire_Missile())
+            if(allSilos[k].Can_Fire_Missile())
             {
                 // make it target a random tile each time
                 target = enemyBoard.GetTile(r.Next(0, 9), r.Next(0, 9));
                 hitTiles.Add(target);
-                enemyBoard.GetMissileManager().RegisterMissile(target.GetX(), target.GetY());
+                enemyBoard.GetMissileManager().RegisterMissile(target.GetX(), target.GetY(), allSilos[k]);
             }
         }
         end_decision();

@@ -25,7 +25,7 @@ public class SmartAI : Player
 
         // shoot a missile from each available silo, based on highest population
         for(int k = 0; k < allSilos.Count; k++){
-            if(allSilos[k].Fire_Missile())
+            if(allSilos[k].Can_Fire_Missile())
             {
                 for(int i = 0; i < 10; i++){
                     for(int j = 0; j < 10; j++){
@@ -35,7 +35,7 @@ public class SmartAI : Player
                 }
                 // this keeps track of which target is hit
                 hitTiles.Add(target);
-                enemyBoard.GetMissileManager().RegisterMissile(target.GetX(), target.GetY());
+                enemyBoard.GetMissileManager().RegisterMissile(target.GetX(), target.GetY(), allSilos[k]);
             }
         }
         end_decision();

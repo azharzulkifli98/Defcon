@@ -11,7 +11,7 @@ public class MissileManager //Missile manager inherits from nothing
     /// <summary>
     /// The number of turns until the missile lands
     /// </summary>
-    const int MISSILE_LIFE_TIME = 1;
+    const int MISSILE_LIFE_TIME = 3;
 
     /// <summary>
     /// The count value when a missile has been detected
@@ -48,9 +48,11 @@ public class MissileManager //Missile manager inherits from nothing
     /// </summary>
     /// <param name="x">The x coordinate of the tile we land on</param>
     /// <param name="y">The y coordinate of the tile we land on</param>
-    public void RegisterMissile(int x, int y)
+    public void RegisterMissile(int x, int y, MissileSilo silo)
     {
         missileLaunches.Add(new MissileLaunch(x, y));
+
+        MissileAnimator.LaunchMissile(new Vector3(x, 0, y));
     }
 
     /// <summary>

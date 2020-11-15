@@ -86,7 +86,7 @@ public class Board
     // place a silo on tile location
     public void SetMissileSilo(int given_x, int given_y)
     {
-        MissileSilo m = new MissileSilo(given_x, given_y);
+        MissileSilo m = new MissileSilo(given_x, given_y, new Vector3(given_x, 0, given_y) + WorldRenderManager.GetOffset(this));
         AllSilos.Add(m);
         tiles[given_x, given_y].SetStruct(m);
     }

@@ -12,6 +12,11 @@ public class UserPlayer : Player
 {
     // number of silos player can use
     int silo;
+
+    List<MissileSilo> silos = new List<MissileSilo>();
+
+    int siloIndex = 0;
+    
     // board that player will fire missiles at
     Board enemyBoard;
 
@@ -60,6 +65,7 @@ public class UserPlayer : Player
         {
             this.playerBoard.SetMissileSilo(x,y);
             UserDisplay.DisplayToPlayer("Silo Placed");
+            silos.Add(playerBoard.GetTile(x, y).GetStruct() as MissileSilo);
             silo --;
         }
         else
@@ -80,9 +86,19 @@ public class UserPlayer : Player
      */
     public void RegisterMissile(BoardTile tile)
     {
-        enemyBoard.GetMissileManager().RegisterMissile(tile.GetX(), tile.GetY());
+        enemyBoard.GetMissileManager().RegisterMissile(tile.GetX(), tile.GetY(), silos[siloIndex]);
 
-        WorldRenderManager.EnemyBoard.mouseManager.OnTileSelect -= RegisterMissile;
-        end_decision();
+        siloIndex++;
+
+        while(!silos[siloIndex].Can_Fire_Missile())
+        {
+            siloIndex++;
+        }
+
+        if (siloIndex >= silos.Count)
+        {
+            WorldRenderManager.EnemyBoard.mouseManager.OnTileSelect -= RegisterMissile;
+            end_decision();
+        }
     }
 }

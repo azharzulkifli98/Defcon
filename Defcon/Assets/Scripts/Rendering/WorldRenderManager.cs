@@ -39,7 +39,6 @@ public class WorldRenderManager
     public delegate void onTileHover(BoardTile tile, WorldRenderer.WorldRenderMode mode);
     public static onTileHover OnTileHover;
 
-
     public static void WhenUserTileHover(BoardTile tile)
     {
         if(OnTileHover != null)
@@ -53,6 +52,18 @@ public class WorldRenderManager
         if (OnTileHover != null)
         {
             OnTileHover(tile, tile.GetDiscovered()?WorldRenderer.WorldRenderMode.Discovered:WorldRenderer.WorldRenderMode.Hidden);
+        }
+    }
+
+    public static Vector3 GetOffset(Board board)
+    {
+        if(board == userBoard)
+        {
+            return new Vector3(-5, 0, -10);
+        }
+        else
+        {
+            return new Vector3(-5, 0, 5);
         }
     }
 }

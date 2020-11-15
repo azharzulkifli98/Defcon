@@ -6,11 +6,15 @@ public class MissileSilo : Structure
 {
     int missile_count;
 
+    Vector3 location;
 
-    public MissileSilo(int given_x, int given_y)
+    public MissileSilo(int given_x, int given_y, Vector3 location)
     {
         x = given_x;
         y = given_y;
+
+
+        this.location = location;
 
         missile_count = 5;
     }
