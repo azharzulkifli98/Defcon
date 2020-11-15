@@ -79,10 +79,18 @@ public class MenuScreen : MonoBehaviour
                 switch (input.ToUpper())
                 {
                     case "SIMPLE":
-                        callback = delegate { SceneManager.LoadScene(BeginScene); };
+                        callback = delegate { 
+                            GameManager.setPlayer1(new UserPlayer());
+                            GameManager.setPlayer2(new SimpleAI());
+                            SceneManager.LoadScene(BeginScene); 
+                            };
                         return "I'LL GO EASY ON YOU.";
                     case "SMART":
-                        callback = delegate { Debug.Log("TODO start player vs smart"); };
+                        callback = delegate { 
+                            GameManager.setPlayer1(new UserPlayer());
+                            GameManager.setPlayer2(new SmartAI());
+                            SceneManager.LoadScene(BeginScene);  
+                            };
                         return "LETS PLAY.";
                     default:
                         return "IS YOUR OPPONENT SIMPLE OR SMART?";
@@ -91,13 +99,25 @@ public class MenuScreen : MonoBehaviour
                 switch (input.ToUpper())
                 {
                     case "SIMPLE VS SIMPLE":
-                        callback = delegate { Debug.Log("TODO start simple vs simple"); };
+                        callback = delegate { 
+                            GameManager.setPlayer1(new SimpleAI());
+                            GameManager.setPlayer2(new SimpleAI());
+                            SceneManager.LoadScene(BeginScene); 
+                            };
                         return "LET'S WATCH THE SHOW.";
                     case "SIMPLE VS SMART":
-                        callback = delegate { Debug.Log("TODO start simple vs simple"); };
+                        callback = delegate { 
+                            GameManager.setPlayer1(new SimpleAI());
+                            GameManager.setPlayer2(new SmartAI());
+                            SceneManager.LoadScene(BeginScene); 
+                            };
                         return "I THINK YOU CAN PREDICT THIS ONE.";
                     case "SMART VS SMART":
-                        callback = delegate { Debug.Log("TODO start smart vs smart"); };
+                        callback = delegate { 
+                            GameManager.setPlayer1(new SmartAI());
+                            GameManager.setPlayer2(new SmartAI());
+                            SceneManager.LoadScene(BeginScene);  
+                            };
                         return "SMART CHOICE.";
                     default:
                         return "WHAT WOULD YOU LIKE TO WATCH?";
