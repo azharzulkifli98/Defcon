@@ -16,8 +16,7 @@ public class TextOverlay : MonoBehaviour
     /// <param name="tile"></param>
     public void OnTileHover(BoardTile tile, WorldRenderer.WorldRenderMode mode)
     {
-       int pop=tile.GetPopulation();
-       Debug.Log("over tile");
+        
     }
 
     /// <summary>
