@@ -67,6 +67,8 @@ public class UserPlayer : Player
             UserDisplay.DisplayToPlayer("Silo Placed");
             silos.Add(playerBoard.GetTile(x, y).GetStruct() as MissileSilo);
             silo --;
+            //tile.SetDiscover(true);
+            //WorldRenderer.Render(this.playerBoard);
         }
         else
         {

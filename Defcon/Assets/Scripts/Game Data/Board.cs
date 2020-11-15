@@ -174,10 +174,12 @@ public class Board
                     if (i == x && j == y)
                     {
                         tiles[i, j].OnDirectHit();
+                        tiles[i, j].SetDiscover(true);
                     }
                     else
                     {
                         tiles[i, j].OnIndirectHit();
+                        tiles[i, j].SetDiscover(true);
                     }
                     
                 }

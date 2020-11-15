@@ -22,6 +22,8 @@ public abstract class Player //abstract denotes that this class has abstract fun
     {
         this.playerBoard=playerBoard;
     }
+
+
     /// <summary>
     /// Player sets their own silos on the board
     /// </summary>

@@ -29,8 +29,11 @@ public class SmartAI : Player
             {
                 for(int i = 0; i < 10; i++){
                     for(int j = 0; j < 10; j++){
-                        if ((target.GetPopulation() < enemyBoard.GetTile(i,j).GetPopulation()) && !hitTiles.Contains(target))
-                            target = enemyBoard.GetTile(i,j);
+                        if (target.GetDiscovered())
+                        {
+                            if ((target.GetPopulation() < enemyBoard.GetTile(i, j).GetPopulation()) && !hitTiles.Contains(target))
+                                target = enemyBoard.GetTile(i, j);
+                        }
                     }
                 }
                 // this keeps track of which target is hit
@@ -47,20 +50,24 @@ public class SmartAI : Player
     public override void set_silos()
     {
         // need to set 3 missile silos
+        bool placed;
         for (int k = 0; k < 3; k++)
         {
+            placed = false;
             City c = this.playerBoard.GetAllCities()[k];
             
-            for (int i = c.GetX() - 2; i < 3; i += 2)
+            for (int i = c.GetX() - 2; i < c.GetX() + 3; i += 2)
             {
-                for (int j = c.GetY() - 2; j < 3; j += 2)
+                for (int j = c.GetY() - 2; j < c.GetY() + 3; j += 2)
                 {
-                    if (i >= 0 && i < this.playerBoard.GetWidth() && 
+                    if (!placed &&
+                        i >= 0 && i < this.playerBoard.GetWidth() && 
                         j >= 0 && j < this.playerBoard.GetHeight() && 
                         this.playerBoard.GetTile(i, j).GetStruct() == null) 
                     {
                         // found acceptable tile
                         this.playerBoard.SetMissileSilo(i, j);
+                        placed = true;
                     }
                 }
             }
