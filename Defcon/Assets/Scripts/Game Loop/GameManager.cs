@@ -26,11 +26,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-<<<<<<< HEAD
-        StartGame(new SmartAI(), new Board(), new UserPlayer(), new Board());
-=======
-        StartGame(new UserPlayer(), new Board(), new SimpleAI(), new Board());
->>>>>>> 83696f9950860c37f0ece12de667a56f93132198
+        StartGame(new UserPlayer(), new Board(), new SmartAI(), new Board());
     }
 
     public static void StartGame(Player p1, Board b1, Player p2, Board b2)

@@ -38,19 +38,14 @@ public class WorldChunk : MonoBehaviour
         {
             for(int j = minY; j < maxY; j++)
             {
-<<<<<<< HEAD
-                /*if (board.GetTile(i,j).GetDiscovered())
-=======
                 if (board.GetTile(i,j).GetDiscovered() || mode == WorldRenderer.WorldRenderMode.Discovered)
->>>>>>> 83696f9950860c37f0ece12de667a56f93132198
                 {
                     RenderKnownTile(map, board.GetTile(i,j));
                 }
                 else
                 {
                     RenderUnknownTile(map, board.GetTile(i,j));
-                }*/
-                RenderKnownTile(map, board.GetTile(i, j));
+                }
             }
         }
 

@@ -61,11 +61,8 @@ public class UserPlayer : Player
             this.playerBoard.SetMissileSilo(x,y);
             UserDisplay.DisplayToPlayer("Silo Placed");
             silo --;
-<<<<<<< HEAD
-            tile.SetDiscover(true);
-            WorldRenderer.Render(this.playerBoard);
-=======
->>>>>>> 83696f9950860c37f0ece12de667a56f93132198
+            //tile.SetDiscover(true);
+            //WorldRenderer.Render(this.playerBoard);
         }
         else
         {
