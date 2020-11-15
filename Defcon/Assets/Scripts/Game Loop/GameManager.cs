@@ -28,9 +28,19 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        StartGame(new UserPlayer(), new Board(), new SimpleAI(), new Board());
+        StartGame(p1, new Board(), p2, new Board());
 
         singleton = this;
+    }
+
+    public static void setPlayer1(Player p1)
+    {
+        GameManager.p1 = p1;
+    }
+
+    public static void setPlayer2(Player p2)
+    {
+        GameManager.p2 = p2;
     }
 
     public static void StartGame(Player p1, Board b1, Player p2, Board b2)
