@@ -8,6 +8,7 @@ public class EndScreen : MonoBehaviour
 {
     public static string message;
     public static string EndSceneName = "EndScene";
+    public string ContinueScene = "MenuScene";
 
     public static void Load()
     {
@@ -15,7 +16,8 @@ public class EndScreen : MonoBehaviour
     }
 
     [SerializeField]
-    Text text;
+    Text text = null;
+    bool isDisplaying;
 
 
     [SerializeField]
@@ -32,37 +34,49 @@ public class EndScreen : MonoBehaviour
 
     private void Start()
     {
-        if(message == null)
+        if (message == null)
             message = text.text;
         text.text = "_";
         textTime = 0;
         textIndex = 0;
         blinkTime = 0;
         blinkOn = true;
+        isDisplaying = true;
     }
 
     private void Update()
     {
+        if (!isDisplaying)
+            if (Input.GetKeyDown(KeyCode.Return))
+                SceneManager.LoadScene(ContinueScene);
+
+
         bool doUpdate = false;
         textTime += Time.deltaTime;
         blinkTime += Time.deltaTime;
         if (textTime > textSpeed)
         {
             textTime -= textSpeed;
-            if(textIndex < message.Length)
+            if (textIndex < message.Length)
+            {
                 textIndex++;
-            doUpdate = true;
+                doUpdate = true;
+            }
+            else
+            {
+                isDisplaying = false;
+            }
         }
-        if(blinkTime > blinkSpeed)
+        if (blinkTime > blinkSpeed)
         {
             blinkTime -= blinkSpeed;
             blinkOn = !blinkOn;
             doUpdate = true;
         }
-        if(doUpdate)
+        if (doUpdate)
         {
             text.text = message.Substring(0, textIndex);
-            if(blinkOn)
+            if (blinkOn)
                 text.text += "_";
         }
     }
