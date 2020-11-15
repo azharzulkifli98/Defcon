@@ -17,7 +17,7 @@ public class TextOverlay : MonoBehaviour
     public void OnTileHover(BoardTile tile)
     {
        int pop=tile.GetPopulation();
-       Debug.Log(pop.ToString());
+       Debug.Log("over tile");
     }
 
     /// <summary>
