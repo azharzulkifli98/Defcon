@@ -16,7 +16,7 @@ public class MissileSilo : Structure
 
         this.location = location;
 
-        missile_count = 1;
+        missile_count = 3;
     }
 
     public override string GetID()
