@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        StartGame(new UserPlayer(), new Board(), new SimpleAI(), new Board());
+        StartGame(new UserPlayer(), new Board(), new SmartAI(), new Board());
 
         singleton = this;
     }
@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
     public static void StartGame(Player p1, Board b1, Player p2, Board b2)
     {
         Board.OnWorldUpdate += WorldRenderManager.UpdateRender;
-
 
         //No player are ready
         p1_ready = false;
@@ -49,6 +48,9 @@ public class GameManager : MonoBehaviour
 
         WorldRenderManager.RenderUser(b1);
         WorldRenderManager.RenderEnemy(b2);
+
+        WorldRenderManager.UserBoard.mouseManager.OnTileHover += WorldRenderManager.WhenUserTileHover;
+        WorldRenderManager.EnemyBoard.mouseManager.OnTileHover += WorldRenderManager.WhenEnemyTileHover;
 
         //Set the boards
         p1.set_player_board(b1);
