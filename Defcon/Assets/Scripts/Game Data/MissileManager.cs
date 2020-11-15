@@ -11,7 +11,7 @@ public class MissileManager //Missile manager inherits from nothing
     /// <summary>
     /// The number of turns until the missile lands
     /// </summary>
-    const int MISSILE_LIFE_TIME = 3;
+    const int MISSILE_LIFE_TIME = 2;
 
     /// <summary>
     /// The count value when a missile has been detected
@@ -52,7 +52,9 @@ public class MissileManager //Missile manager inherits from nothing
     {
         missileLaunches.Add(new MissileLaunch(x, y));
 
-        MissileAnimator.LaunchMissile(new Vector3(x, 0, y));
+        silo.Fire_Missile();
+
+        MissileAnimator.LaunchMissile(silo.GetLocation());
     }
 
     /// <summary>

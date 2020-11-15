@@ -16,7 +16,7 @@ public class WorldRenderManager
     /// <summary>
     /// Used to render the opponent's board (farthest from camera)
     /// </summary>
-    public static WorldRenderer EnemyBoard = new WorldRenderer(new Vector3(-5, 0, 5), WorldRenderer.WorldRenderMode.Discovered);
+    public static WorldRenderer EnemyBoard = new WorldRenderer(new Vector3(-5, 0, 5), WorldRenderer.WorldRenderMode.Hidden);
 
     public static void RenderUser(Board board)
     {

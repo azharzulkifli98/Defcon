@@ -137,6 +137,19 @@ public class Board
         return AllSilos;
     }
 
+    public bool CanFire()
+    {
+        foreach (MissileSilo silo in AllSilos)
+        {
+            if (silo.Can_Fire_Missile())
+            {
+                Debug.LogError("CAN FIRE");
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Get All Cities, add them to list
     public List<City> GetAllCities()
     {
@@ -173,6 +186,7 @@ public class Board
                     // is this tile a direct hit
                     if (i == x && j == y)
                     {
+                        MissileAnimator.LandMissile(new Vector3(x, 0, y) + WorldRenderManager.GetOffset(this));
                         tiles[i, j].OnDirectHit();
                         tiles[i, j].SetDiscover(true);
                     }

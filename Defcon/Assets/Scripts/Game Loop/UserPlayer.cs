@@ -92,13 +92,14 @@ public class UserPlayer : Player
 
         siloIndex++;
 
-        while(!silos[siloIndex].Can_Fire_Missile())
+        while(siloIndex < silos.Count && !silos[siloIndex].Can_Fire_Missile())
         {
             siloIndex++;
         }
 
         if (siloIndex >= silos.Count)
         {
+            siloIndex = 0;
             WorldRenderManager.EnemyBoard.mouseManager.OnTileSelect -= RegisterMissile;
             end_decision();
         }

@@ -22,7 +22,7 @@ public class MenuScreen : MonoBehaviour
 
     [SerializeField]
     [Tooltip("How many seconds to wait between displaying characters")]
-    float textSpeed = 0.1f;
+    float textSpeed = 0.05f;
     float textTime;
     int textIndex;
 

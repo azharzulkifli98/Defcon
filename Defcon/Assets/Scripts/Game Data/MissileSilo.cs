@@ -16,7 +16,7 @@ public class MissileSilo : Structure
 
         this.location = location;
 
-        missile_count = 5;
+        missile_count = 1;
     }
 
     public override string GetID()
@@ -38,9 +38,10 @@ public class MissileSilo : Structure
     // Decrement missile count and return true if missile_count > 0
     // otherwise, return false and do nothing
     public bool Fire_Missile()
-    { 
+    {
 	if (missile_count > 0 && !IsDestroyed())
         {
+        Debug.Log("FIRING");
             missile_count--;
             return true;
         }
@@ -48,5 +49,10 @@ public class MissileSilo : Structure
         {
             return false;
         }
+    }
+
+    public Vector3 GetLocation()
+    {
+        return location;
     }
 }

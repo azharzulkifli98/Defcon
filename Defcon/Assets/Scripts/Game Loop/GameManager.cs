@@ -79,11 +79,17 @@ public class GameManager : MonoBehaviour
         //find player board (render)
         if (player == p1)
         {
-            player.make_decision(b1, b2);
+            if (b1.CanFire())
+                player.make_decision(b1, b2);
+            else
+                YieldTurn(p1);
         }
         else
         {
-            player.make_decision(b2, b1);
+            if (b2.CanFire())
+                player.make_decision(b2, b1);
+            else
+                YieldTurn(p2);
         }
     }
 
@@ -93,43 +99,51 @@ public class GameManager : MonoBehaviour
     /// <param name="player"></param>
     public static void YieldTurn(Player player)
     {
-        //Next turn basically
-        if (player == p1)
+        if (!NextRound())
+            EndGame();
+        else
         {
-            b2.GetMissileManager().UpdateLaunches();
-
-            foreach (MissileManager.MissileLaunch launch in b2.GetMissileManager().GetLandingMissiles())
+            //Next turn basically
+            if (player == p1)
             {
-                b2.Impact(launch.x, launch.y);
+                b2.GetMissileManager().UpdateLaunches();
+
+                foreach (MissileManager.MissileLaunch launch in b2.GetMissileManager().GetLandingMissiles())
+                {
+                    b2.Impact(launch.x, launch.y);
+                }
+
+                Delay(p2);
             }
-
-            Delay(p2);
-            NextRound();
-        }
-        else if (player == p2)
-        {
-            b1.GetMissileManager().UpdateLaunches();
-
-            foreach (MissileManager.MissileLaunch launch in b1.GetMissileManager().GetLandingMissiles())
+            else if (player == p2)
             {
-                Debug.Log("Landing at " + launch.x + ", " + launch.y);
-                b1.Impact(launch.x, launch.y);
+                b1.GetMissileManager().UpdateLaunches();
+
+                foreach (MissileManager.MissileLaunch launch in b1.GetMissileManager().GetLandingMissiles())
+                {
+                    Debug.Log("Landing at " + launch.x + ", " + launch.y);
+                    b1.Impact(launch.x, launch.y);
+                }
+                Delay(p1);
             }
-            Delay(p1);
-            NextRound();
         }
     }
 
-    public static void NextRound()
+
+    /// <summary>
+    /// Do we play the next round or end the game?
+    /// </summary>
+    /// <returns></returns>
+    public static bool NextRound()
     {
         // TODO check for errors
 
         // End the game when a player is out of missiles
         // If all silos cannot fire missile and no missile are in the air
-        if (b2.GetAllSilos().All(silo => !silo.Can_Fire_Missile()) && b1.GetMissileManager().NoMissiles())
-            EndGame();
-        if (b1.GetAllSilos().All(silo => !silo.Can_Fire_Missile()) && b2.GetMissileManager().NoMissiles())
-            EndGame();
+        if (!b2.CanFire() && b1.GetMissileManager().NoMissiles()
+         && !b1.CanFire() && b2.GetMissileManager().NoMissiles())
+            return false;
+        return true;
     }
 
     private static void Delay(Player player)
@@ -151,31 +165,31 @@ public class GameManager : MonoBehaviour
     static void EndGame()
     {
         // Score keeping system: uses a percentage system instead of a number of kills
-        int killsPlayer1 = p1.playerBoard.GetInitialPopulation() - p1.playerBoard.GetTotalPopulation();
-        int killsPlayer2 = p2.playerBoard.GetInitialPopulation() - p2.playerBoard.GetTotalPopulation();
+        int deadP1 = p1.playerBoard.GetInitialPopulation() - p1.playerBoard.GetTotalPopulation();
+        int deadP2 = p2.playerBoard.GetInitialPopulation() - p2.playerBoard.GetTotalPopulation();
 
-        float percentPopPlayer1 = ((float)killsPlayer1) / p1.playerBoard.GetInitialPopulation();
-        float percentPopPlayer2 = ((float)killsPlayer2) / p2.playerBoard.GetInitialPopulation();
+        float percentKillsP2 = ((float)deadP1) / p1.playerBoard.GetInitialPopulation();
+        float percentKillsP1 = ((float)deadP2) / p2.playerBoard.GetInitialPopulation();
 
-        if (percentPopPlayer1 > percentPopPlayer2)
+        if (percentKillsP2 < percentKillsP1)
         {
             EndScreen.message = "PLAYER 1 HAS WON\n";
             Debug.Log("Player 1 has won");
-            Debug.Log(percentPopPlayer1);
+            Debug.Log(percentKillsP2);
         }
         else
         {
             EndScreen.message = "PLAYER 2 HAS WON\n";
             Debug.Log("Player 2 has won");
-            Debug.Log(percentPopPlayer2);
+            Debug.Log(percentKillsP1);
         }
 
         EndScreen.message += "PLAYER 1 STATISTICS:\n"
-                           + $"  KILLS: {killsPlayer1,6}\n"
-                           + $"         {percentPopPlayer1,8:P2}\n"
+                           + $"  KILLS: {deadP2,6}\n"
+                           + $"         {percentKillsP1,8:P2}\n"
                            + "PLAYER 2 STATISTICS:\n"
-                           + $"  KILLS: {killsPlayer2,6}\n"
-                           + $"         {percentPopPlayer2,8:P2}\n"
+                           + $"  KILLS: {deadP1,6}\n"
+                           + $"         {percentKillsP2,8:P2}\n"
                            + "PRESS ENTER TO CONTINUE";
         EndScreen.Load();
     }

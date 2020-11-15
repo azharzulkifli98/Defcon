@@ -66,7 +66,7 @@ public class MissileAnimator : MonoBehaviour
             yield return null;
         state = MissileAnimatorState.Animating;
 
-        Transform missile = Instantiate(UpPrefab, location + Vector3.up * 8f, Quaternion.identity, transform).transform;
+        Transform missile = Instantiate(DownPrefab, location + Vector3.up * 8f, Quaternion.identity, transform).transform;
 
         float time = 0;
 

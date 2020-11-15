@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter)), RequireComponent(typeof(MeshRenderer))]
 public class CloudRenderer : MonoBehaviour
 {
-    const int DETAIL_SIZE = 4;
+    const int DETAIL_SIZE = 2;
 
     static PerlinNoiseMap map = null;
 

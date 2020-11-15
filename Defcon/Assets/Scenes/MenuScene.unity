@@ -504,7 +504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 905574542}
-  textSpeed: 0.1
+  textSpeed: 0.05
   blinkSpeed: 0.5
 --- !u!1 &1126805014
 GameObject:
