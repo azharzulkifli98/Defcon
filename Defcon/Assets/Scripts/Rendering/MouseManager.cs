@@ -7,28 +7,17 @@ public class MouseManager : MonoBehaviour
     /// <summary>
     /// The currently assigned board for this MouseManager
     /// </summary>
-    static Board board;
+    Board board;
 
     /// <summary>
     /// The offset that this world is using
     /// </summary>
-    static Vector3 offset;
+    Vector3 offset;
 
-    /// <summary>
-    /// The highlighter being used to keep track of what tile we're on
-    /// </summary>
-    [SerializeField]
-    Transform highlighter = null;
-
-    /// <summary>
-    /// Primes and prepares the MouseManager for the given board and offset
-    /// </summary>
-    /// <param name="board"></param>
-    /// <param name="offset"></param>
-    public static void Prime(Board board, Vector3 offset)
+    public void Prime(Board board, Vector3 offset)
     {
-        MouseManager.board = board;
-        MouseManager.offset = offset;
+        this.board = board;
+        this.offset = offset;
     }
 
     /// <summary>
@@ -36,26 +25,31 @@ public class MouseManager : MonoBehaviour
     /// </summary>
     public void Update()
     {
+        if (board == null)
+            return;
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Plane ground = new Plane(Vector3.up, Vector3.zero);
+
+        Vector3 position;
 
         float dist;
 
         if (ground.Raycast(ray, out dist))
         {
             Vector3 point = ray.GetPoint(dist);
-            highlighter.position = round_point(point);
-        }
+            position = round_point(point);
 
-        if (convert_point_to_tile(highlighter.position) != null)
-        {
-            if (OnTileHover != null)
+            if (convert_point_to_tile(position) != null)
             {
-                OnTileHover(convert_point_to_tile(highlighter.position));
-            }
-            if (Input.GetMouseButtonDown(0) && OnTileSelect != null)
-            {
-                OnTileSelect(convert_point_to_tile(highlighter.position));
+                if (OnTileHover != null)
+                {
+                    OnTileHover(convert_point_to_tile(position));
+                }
+                if (Input.GetMouseButtonDown(0) && OnTileSelect != null)
+                {
+                    OnTileSelect(convert_point_to_tile(position));
+                }
             }
         }
     }
@@ -116,10 +110,17 @@ public class MouseManager : MonoBehaviour
     * When the user selects a tile, any function that has been +='ed but not -='ed will be called
     */
     public delegate void onTileEvent(BoardTile selected);
-    public static event onTileEvent OnTileSelect;
+    public event onTileEvent OnTileSelect;
 
     /// <summary>
     /// Called when the mouse hovers over a given tile
     /// </summary>
-    public static event onTileEvent OnTileHover;
+    public event onTileEvent OnTileHover;
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(offset, 1f);
+    }
 }

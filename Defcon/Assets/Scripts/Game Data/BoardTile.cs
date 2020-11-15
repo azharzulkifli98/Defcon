@@ -49,6 +49,7 @@ public class BoardTile
             structure.Destroy();
         }
         this.discovered=true;
+        Board.UpdateWorld();
     }
 
     // Perform all funcitonality related to a glancing hit (missile hits adjacent tile)
@@ -62,6 +63,7 @@ public class BoardTile
             structure.Destroy();
         }
         this.discovered=true;
+        Board.UpdateWorld();
     }
 
     // Structure needs getter
@@ -76,10 +78,12 @@ public class BoardTile
         if (this.structure == null)
         {
             this.structure = given_struct;
+            Board.UpdateWorld();
             return true;
         }
         else
         {
+            Board.UpdateWorld();
             return false;
         }
     }
@@ -100,6 +104,8 @@ public class BoardTile
     public void SetDiscover(bool selection)
     {
         this.discovered=selection;
+
+        Board.UpdateWorld();
     }
 
     /// <summary>

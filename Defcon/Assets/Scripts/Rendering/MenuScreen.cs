@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,11 +11,13 @@ public class MenuScreen : MonoBehaviour
 
     string textBuffer;
     string inputBuffer;
-    bool loadGame;
     bool isDisplaying;
+    int consoleState;
+    Action callback;
+
 
     [SerializeField]
-    Text text;
+    Text text = null;
 
 
     [SerializeField]
@@ -31,34 +34,77 @@ public class MenuScreen : MonoBehaviour
 
     private void Start()
     {
-        textBuffer = "SHALL WE PLAY A GAME?\n"
-                   + " - DEFCON\n"
-                   + " - EXIT\n"
-                   + "> ";
-        if (textBuffer == null)
-            textBuffer = text.text + "\n> ";
+        textBuffer = "SHALL WE PLAY A GAME?\n - DEFCON\n - EXIT\n> ";
         text.text = "_";
         textTime = 0;
         textIndex = 0;
         blinkTime = 0;
         blinkOn = true;
         isDisplaying = true;
-        loadGame = false;
+        consoleState = 0;
+        callback = null;
     }
 
     private string Submit(string input)
     {
-        switch (input.ToUpper())
+        if (input.ToUpper() == "EXIT")
         {
-            case "DEFCON":
-                loadGame = true;
-                return "LETS PLAY.";
-            case "EXIT":
-                Debug.Log("Exit");
-                StartCoroutine(WaitThenQuit());
-                return "GOODBYE.";
+            callback = delegate { Debug.Log("Quitting..."); Application.Quit(); };
+            return "GOODBYE.";
+        }
+        switch (consoleState)
+        {
+            case 0:
+                switch (input.ToUpper())
+                {
+                    case "DEFCON":
+                        callback = delegate { consoleState = 1; };
+                        return "WILL YOU BE PLAYING?\n - YES\n - NO";
+                    default:
+                        return "I DON'T KNOW THAT GAME.";
+                }
+            case 1:
+                switch (input.ToUpper())
+                {
+                    case "YES":
+                        callback = delegate { consoleState = 2; };
+                        return "HOW SMART IS YOUR OPPONENT?\n - SIMPLE\n - SMART";
+                    case "NO":
+                        callback = delegate { consoleState = 3; };
+                        return "WHAT WOULD YOU LIKE TO WATCH?\n - SIMPLE VS SIMPLE\n - SIMPLE VS SMART\n - SMART VS SMART";
+                    default:
+                        return "ARE YOU PLAYING OR NOT?";
+                };
+            case 2:
+                switch (input.ToUpper())
+                {
+                    case "SIMPLE":
+                        callback = delegate { SceneManager.LoadScene(BeginScene); };
+                        return "I'LL GO EASY ON YOU.";
+                    case "SMART":
+                        callback = delegate { Debug.Log("TODO start player vs smart"); };
+                        return "LETS PLAY.";
+                    default:
+                        return "IS YOUR OPPONENT SIMPLE OR SMART?";
+                }
+            case 3:
+                switch (input.ToUpper())
+                {
+                    case "SIMPLE VS SIMPLE":
+                        callback = delegate { Debug.Log("TODO start simple vs simple"); };
+                        return "LET'S WATCH THE SHOW.";
+                    case "SIMPLE VS SMART":
+                        callback = delegate { Debug.Log("TODO start simple vs simple"); };
+                        return "I THINK YOU CAN PREDICT THIS ONE.";
+                    case "SMART VS SMART":
+                        callback = delegate { Debug.Log("TODO start smart vs smart"); };
+                        return "SMART CHOICE.";
+                    default:
+                        return "WHAT WOULD YOU LIKE TO WATCH?";
+                }
             default:
-                return "I DON'T KNOW THAT GAME.";
+                consoleState = 0;
+                return "INTERNAL ERROR.\nSHALL WE PLAY A GAME?\n - DEFCON\n - EXIT";
         };
     }
 
@@ -78,7 +124,6 @@ public class MenuScreen : MonoBehaviour
             }
             else if (Input.inputString.Contains("\b"))
             {
-                Debug.Log("Backspace");
                 if (inputBuffer.Length > 0)
                     inputBuffer = inputBuffer.Substring(0, inputBuffer.Length - 1);
                 doUpdate = true;
@@ -101,10 +146,10 @@ public class MenuScreen : MonoBehaviour
             }
             else
             {
-                if (loadGame)
+                if (callback != null)
                 {
-                    Debug.Log("Loading game");
-                    SceneManager.LoadScene(BeginScene);
+                    callback();
+                    callback = null;
                 }
                 isDisplaying = false;
             }
@@ -126,30 +171,4 @@ public class MenuScreen : MonoBehaviour
         }
     }
 
-    private void PlayerVsSimpleAI() 
-    {
-        Debug.Log("User chose: player vs. simple AI");
-    }
-
-    private void SimpleAIVsSmartAI()
-    {
-        Debug.Log("User chose: simple AI vs. smart AI");
-    }
-
-    private void SimpleAIVsSimpleAI()
-    {
-        Debug.Log("User chose: simple AI vs. simple AI");
-    }
-
-    private void SmartAIVsSmartAI()
-    {
-        Debug.Log("User chose: smart AI vs. smart AI");
-    }
-
-    public IEnumerator WaitThenQuit()
-    {
-        yield return new WaitForSeconds(5);
-        Application.Quit();
-        Debug.Log("Application Ended");
-    }
 }

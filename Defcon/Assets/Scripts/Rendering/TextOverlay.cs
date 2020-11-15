@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class TextOverlay : MonoBehaviour
 {
     [SerializeField]
@@ -13,9 +14,9 @@ public class TextOverlay : MonoBehaviour
     /// also move the text to the necessary position on the screen
     /// </summary>
     /// <param name="tile"></param>
-    public void OnTileHover(BoardTile tile)
+    public void OnTileHover(BoardTile tile, WorldRenderer.WorldRenderMode mode)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     /// <summary>
@@ -23,6 +24,6 @@ public class TextOverlay : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        
+        WorldRenderManager.OnTileHover += OnTileHover;
     }
 }

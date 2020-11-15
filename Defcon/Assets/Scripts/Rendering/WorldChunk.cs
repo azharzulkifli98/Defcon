@@ -27,7 +27,7 @@ public class WorldChunk : MonoBehaviour
     /// <param name="maxX"> The lowest X value that isn't rendered after minX</param>
     /// <param name="minY"> The lowest Y value that is rendered</param>
     /// <param name="maxY"> The lowest Y value that isn't rendered after minY</param>
-    public void Prime(Board board, int minX, int maxX, int minY, int maxY)
+    public void Prime(Board board, WorldRenderer.WorldRenderMode mode, int minX, int maxX, int minY, int maxY)
     {
         renderer = GetComponent<MeshRenderer>();
         filter = GetComponent<MeshFilter>();
@@ -38,7 +38,11 @@ public class WorldChunk : MonoBehaviour
         {
             for(int j = minY; j < maxY; j++)
             {
+<<<<<<< HEAD
                 /*if (board.GetTile(i,j).GetDiscovered())
+=======
+                if (board.GetTile(i,j).GetDiscovered() || mode == WorldRenderer.WorldRenderMode.Discovered)
+>>>>>>> 83696f9950860c37f0ece12de667a56f93132198
                 {
                     RenderKnownTile(map, board.GetTile(i,j));
                 }

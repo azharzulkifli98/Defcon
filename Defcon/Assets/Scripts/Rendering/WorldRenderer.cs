@@ -12,23 +12,41 @@ public class WorldRenderer
     /// <summary>
     /// The offset from (0,0,0) that the 
     /// </summary>
-    static Vector3 offset = new Vector3(-5, 0, -10);
+    Vector3 offset; 
 
     /// <summary>
     /// A list of currently instantiated world chunks
     /// </summary>
-    static List<WorldChunk> worldChunks = new List<WorldChunk>();
+    List<WorldChunk> worldChunks = new List<WorldChunk>();
+
+    public WorldRenderMode mode;
+
+    /// <summary>
+    /// An enumerator to allow simple specification of the mode in which we render
+    /// </summary>
+    public enum WorldRenderMode { Discovered, Hidden };
+
+    public MouseManager mouseManager;
+
+    public WorldRenderer(Vector3 offset, WorldRenderMode mode)
+    {
+        this.offset = offset;
+        this.mode = mode;
+
+        mouseManager = new GameObject().AddComponent<MouseManager>();
+        mouseManager.Prime(null, offset);
+    }
 
     /// <summary>
     /// Renders the given board at the offset.
     /// TODO: Require an offset and allow the board to be turned around, so we can have two boards face each other
     /// </summary>
     /// <param name="board"></param>
-    public static void Render(Board board)
+    public void Render(Board board)
     {
         FlushChunks();
 
-        MouseManager.Prime(board, offset);
+        mouseManager.Prime(board, offset);
 
         for (int x = 0; x < board.GetWidth() + MAX_DIM; x += MAX_DIM)
         {
@@ -36,7 +54,7 @@ public class WorldRenderer
             {
                 WorldChunk chunk = new GameObject("Chunk").AddComponent<WorldChunk>();
                 chunk.transform.position = offset;
-                chunk.Prime(board, x, x + MAX_DIM < board.GetWidth() ? x + MAX_DIM : board.GetWidth(), y, y + MAX_DIM < board.GetHeight() ? y + MAX_DIM : board.GetHeight());
+                chunk.Prime(board,mode,x, x + MAX_DIM < board.GetWidth() ? x + MAX_DIM : board.GetWidth(), y, y + MAX_DIM < board.GetHeight() ? y + MAX_DIM : board.GetHeight());
                 worldChunks.Add(chunk);
             }
         }
@@ -45,7 +63,7 @@ public class WorldRenderer
     /// <summary>
     /// Destroys the chunks so that a new world can be rendered
     /// </summary>
-    public static void FlushChunks()
+    public void FlushChunks()
     {
         for(int i = 0; i < worldChunks.Count; i++)
         {
