@@ -16,7 +16,7 @@ public class MissileSilo : Structure
 
         this.location = location;
 
-        missile_count = 3;
+        missile_count = 6;
     }
 
     public override string GetID()
@@ -41,7 +41,6 @@ public class MissileSilo : Structure
     {
 	if (missile_count > 0 && !IsDestroyed())
         {
-        Debug.Log("FIRING");
             missile_count--;
             return true;
         }

@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        if (singleton != null)
+            Destroy(singleton);
         singleton = this;
         StartGame(p1, new Board(), p2, new Board());
 
@@ -165,6 +167,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator DelayCoroutine(Player player)
     {
+        yield return new WaitForSeconds(.5f);
         while(MissileAnimator.IsAnimating())
         {
             yield return null;

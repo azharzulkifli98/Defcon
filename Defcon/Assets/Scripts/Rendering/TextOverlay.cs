@@ -16,7 +16,7 @@ public class TextOverlay : MonoBehaviour
     /// <param name="tile"></param>
     public void OnTileHover(BoardTile tile, WorldRenderer.WorldRenderMode mode)
     {
-        string text = "Hovering over " + tile.GetX() + " " + tile.GetY();
+        string text = "Hovering over " + tile.GetX() + ", " + tile.GetY();
         if (mode == WorldRenderer.WorldRenderMode.Discovered)
         {
             text += "\nDiscovered";

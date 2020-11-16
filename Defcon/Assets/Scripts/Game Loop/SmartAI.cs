@@ -21,38 +21,33 @@ public class SmartAI : Player
         List<MissileSilo> allSilos = playerBoard.GetAllSilos();
 
         // stores enemy target tile, defaulted to 0,0
-        BoardTile target = enemyBoard.GetTile(0, 0);
+
         BoardTile init;
-        var turnhits= new List<BoardTile>();
-        bool gatekeeper=true;
 
         // shoot a missile from each available silo, based on highest population
         for(int k = 0; k < allSilos.Count; k++)
         {
             if(allSilos[k].Can_Fire_Missile())
             {
-                for(int i = 0; i < playerBoard.GetWidth(); i++)
+                BoardTile target = enemyBoard.GetTile(0, 0);
+                for (int i = 0; i < playerBoard.GetWidth(); i++)
                 {
-                    for(int j = 0; j < playerBoard.GetHeight(); j++){
-                        init=enemyBoard.GetTile(i,j);
-                        gatekeeper=false;
-                        //find if already used this turn
-                        for(int z=0; z<turnhits.Count;z++)
+                    for (int j = 0; j < playerBoard.GetHeight(); j++)
+                    {
                         {
-                            if (turnhits[z]==init)
-                            {
-                                gatekeeper=true;
-                            }
-
-                        }
-                        if (init.GetDiscovered()&& gatekeeper==false)
-                        {
-                            if ((target.GetPopulation() < enemyBoard.GetTile(i, j).GetPopulation()))
+                            init = enemyBoard.GetTile(i, j);
+                            if(!target.GetDiscovered() || hitTiles.Contains(target))
                             {
                                 target = init;
-                                turnhits.Add(init);
+                            }else
+                            if (!hitTiles.Contains(init) && init.GetDiscovered())
+                            {
+                                if ((target.GetPopulation() < enemyBoard.GetTile(i, j).GetPopulation()))
+                                {
+
+                                    target = init;
+                                }
                             }
-                                
                         }
                     }
                 }

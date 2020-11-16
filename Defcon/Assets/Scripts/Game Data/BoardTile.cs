@@ -116,4 +116,19 @@ public class BoardTile
     {
         return this.discovered;
     }
+
+    public override bool Equals(object obj)
+    {
+        if(obj.GetType() != typeof(BoardTile))
+        {
+            return false;
+        }
+        BoardTile tile = obj as BoardTile;
+        return this.GetY() == tile.GetY() && this.GetX() == tile.GetX();
+    }
+
+    public override int GetHashCode()
+    {
+        return x * 13 + y * 3;
+    }
 }

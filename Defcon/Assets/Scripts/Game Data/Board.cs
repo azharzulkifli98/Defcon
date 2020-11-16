@@ -143,7 +143,6 @@ public class Board
         {
             if (silo.Can_Fire_Missile())
             {
-                Debug.LogError("CAN FIRE");
                 return true;
             }
         }
