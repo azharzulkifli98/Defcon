@@ -22,17 +22,21 @@ public class SmartAI : Player
 
         // stores enemy target tile, defaulted to 0,0
         BoardTile target = enemyBoard.GetTile(0, 0);
+        BoardTile init;
 
         // shoot a missile from each available silo, based on highest population
-        for(int k = 0; k < allSilos.Count; k++){
+        for(int k = 0; k < allSilos.Count; k++)
+        {
             if(allSilos[k].Can_Fire_Missile())
             {
-                for(int i = 0; i < playerBoard.GetWidth(); i++){
+                for(int i = 0; i < playerBoard.GetWidth(); i++)
+                {
                     for(int j = 0; j < playerBoard.GetHeight(); j++){
-                        if (target.GetDiscovered())
+                        init=enemyBoard.GetTile(i,j);
+                        if (init.GetDiscovered())
                         {
-                            if ((target.GetPopulation() < enemyBoard.GetTile(i, j).GetPopulation()) && !hitTiles.Contains(target))
-                                target = enemyBoard.GetTile(i, j);
+                            if ((target.GetPopulation() < enemyBoard.GetTile(i, j).GetPopulation()) && true)
+                                target = init;
                         }
                     }
                 }
