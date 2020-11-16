@@ -23,6 +23,8 @@ public class SmartAI : Player
         // stores enemy target tile, defaulted to 0,0
         BoardTile target = enemyBoard.GetTile(0, 0);
         BoardTile init;
+        var turnhits= new List<BoardTile>();
+        bool gatekeeper=true;
 
         // shoot a missile from each available silo, based on highest population
         for(int k = 0; k < allSilos.Count; k++)
@@ -33,10 +35,24 @@ public class SmartAI : Player
                 {
                     for(int j = 0; j < playerBoard.GetHeight(); j++){
                         init=enemyBoard.GetTile(i,j);
-                        if (init.GetDiscovered())
+                        gatekeeper=false;
+                        //find if already used this turn
+                        for(int z=0; z<turnhits.Count;z++)
                         {
-                            if ((target.GetPopulation() < enemyBoard.GetTile(i, j).GetPopulation()) && true)
+                            if (turnhits[z]==init)
+                            {
+                                gatekeeper=true;
+                            }
+
+                        }
+                        if (init.GetDiscovered()&& gatekeeper==false)
+                        {
+                            if ((target.GetPopulation() < enemyBoard.GetTile(i, j).GetPopulation()))
+                            {
                                 target = init;
+                                turnhits.Add(init);
+                            }
+                                
                         }
                     }
                 }
