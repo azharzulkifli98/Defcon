@@ -48,7 +48,7 @@ public class EndScreen : MonoBehaviour
     {
         if (!isDisplaying)
             if (Input.GetKeyDown(KeyCode.Return))
-                SceneManager.LoadScene(ContinueScene);
+                Application.Quit();
 
 
         bool doUpdate = false;
